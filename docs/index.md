@@ -8,6 +8,8 @@ It allows translators to work with -XLIFF based- translation software.
 Wagtail XLIFF Translation provides a download view in the Wagtail admin to export site contents to XLIFF file. 
 Once the file is translated, it can be uploaded to create a translated site tree.
 
+Exporting and importing a sub-tree, or a single page is supported.
+
 ## Known limitations
 
 - Related objects (such as images, documents, and snippets) are not translated or duplicated.
