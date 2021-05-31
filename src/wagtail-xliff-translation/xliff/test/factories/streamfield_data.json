@@ -1,0 +1,116 @@
+[
+    {
+        "type": "char_block",
+        "value": "text"
+    },
+    {
+        "type": "boolean_block",
+        "value": true
+    },
+    {
+        "type": "text_block",
+        "value": "text"
+    },
+    {
+        "type": "email_block",
+        "value": "test@test.nl"
+    },
+    {
+        "type": "url_block",
+        "value": "http://www.fourdigits.nl"
+    },
+    {
+        "type": "rich_text_block",
+        "value": "<h4><b>beautifull Richtext</b></h4><ol><li><b>a bold list item</b></li></ol>"
+    },
+    {
+        "type": "raw_html_block",
+        "value": "<div class='rawhtml'>rawhtmlblock</div>"
+    },
+    {
+        "type": "blockquote_block",
+        "value": "a blockquote"
+    },
+    {
+        "type": "struct_block",
+        "value": {
+            "field_a": "simple struct field a",
+            "field_b": "simple struct field b"
+        }
+    },
+    {
+        "type": "rich_text_struct_block",
+        "value": {
+            "field_a": "<p><b>rich text struct block</b></p>",
+            "field_b": "<p><b>rich text structblock</b></p>"
+        }
+    },
+    {
+        "type": "nested_struct_block",
+        "value": {
+            "child": {
+                "field_a": "nested structblock field a",
+                "field_b": "nested structblock field b"
+            }
+        }
+    },
+    {
+        "type": "list_block",
+        "value": [
+            "list with text",
+            "second item"
+        ]
+    },
+    {
+        "type": "list_block_with_struct_block",
+        "value": [
+            {
+                "field_a": "field a in listblock",
+                "field_b": "field b in list block"
+            },
+            {
+                "field_a": "field a in listblock",
+                "field_b": "field b in list block"
+            }
+        ]
+    },
+    {
+        "type": "stream_block",
+        "value": [
+            {
+                "type": "char_block",
+                "value": "with a char block"
+            }
+        ]
+    },
+    {
+        "type": "nested_streamblock",
+        "value": [
+            {
+                "type": "child",
+                "value": [
+                    {
+                        "type": "char_block",
+                        "value": "very much nested char block"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "stream_block_with_struct_block",
+        "value": [
+            {
+                "type": "child",
+                "value": {
+                    "field_a": "nested_field_a",
+                    "field_b": "nested_field_b"
+                }
+            }
+        ]
+    },
+    {
+        "type": "document_block",
+        "value": 5
+    }
+]
