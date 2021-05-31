@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.core import hooks
 
-from zg.django.xliff.views import DownloadView, UploadView
+from . import DownloadView, UploadView
 
 
 @hooks.register("register_admin_urls")

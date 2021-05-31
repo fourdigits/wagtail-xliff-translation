@@ -12,17 +12,16 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from zg.django.website.blocks import ExternalDownloadChooserBlock
-from zg.django.xliff.constants import (
+from ..constants import (
     ContentType,
     FileAttributes,
     GroupAttributes,
     MetaGroupAttributes,
     UnitAttributes,
 )
-from zg.django.xliff.helpers.page import PageHelper
-from zg.django.xliff.utils import bool_to_xliff
-from zg.django.xliff.xliff_generator import XliffGenerator
+from ..helpers.page import PageHelper
+from ..utils import bool_to_xliff
+from ..xliff_generator import XliffGenerator
 
 
 class WagtailXliffSerializer(base.Serializer):
@@ -166,7 +165,6 @@ class WagtailXliffSerializer(base.Serializer):
                     ImageChooserBlock,
                     PageChooserBlock,
                     DocumentChooserBlock,
-                    ExternalDownloadChooserBlock,
                 ),
             ):
                 if block_value:

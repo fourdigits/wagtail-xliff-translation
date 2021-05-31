@@ -1,15 +1,15 @@
-from zg.django.xliff.parsers.xliff_wagtail import XliffWagtailParser
+from ...parsers.xliff_wagtail import XliffWagtailParser
 import pytest
 
 from django.core import serializers
 from django.core.serializers.base import DeserializationError
 
-from zg.django.xliff.tests.utils import get_condensed_sample_data, get_object_ids
+from ...tests.utils import get_condensed_sample_data, get_object_ids
 
 pytestmark = pytest.mark.django_db
 
 
-def test_basic_deserialization(english_german_base, zg_page_factory):
+def test_basic_deserialization(english_german_base, page_factory):
     site, english_page, german_language = english_german_base
     object_ids = get_object_ids([english_page])
     xliff = get_condensed_sample_data("xliff_translated/zgpage.xliff", object_ids)
@@ -20,7 +20,7 @@ def test_basic_deserialization(english_german_base, zg_page_factory):
     assert german_page.draft
     assert german_page.title == german_page.slug == "german_page"
 
-    new_parent_page = zg_page_factory()
+    new_parent_page = page_factory()
     with pytest.raises(DeserializationError):
         serializers.deserialize(
             "xliff",

@@ -1,10 +1,12 @@
 from base64 import b64encode
 from html.parser import HTMLParser
-from zg.django.website.models.pages.base import ZGPage
-from zg.django.website.models.images import AltTextImage
 
 from django.core.serializers.base import SerializationError
 
+from wagtail.core.models import Page
+from wagtail.images import get_image_model
+
+ImageModel = get_image_model()
 
 class HtmlXliffParser(HTMLParser):
     """
@@ -49,8 +51,13 @@ class HtmlXliffParser(HTMLParser):
         raise SerializationError(message)
 
     def handle_starttag(self, tag, attrs):
+        """
+            Method that handles starttags. It's needed to differ from standard 
+            tags (e.g. <div> or <p>) and anchor, image and iframe tags. 
+            Furthermore, for each tag it's possible to receive attributes 
+            belonging to those tags, so we need to set each attribute
+        """
         if tag == "a":
-            print(self._handle_anchor_tag(attrs))
             self._html += self._handle_anchor_tag(attrs)
         elif tag == "img":
             self._html += self._handle_img_tag(attrs)
@@ -83,6 +90,9 @@ class HtmlXliffParser(HTMLParser):
         self._html += f"</{str(tag)}>"
 
     def handle_data(self, data):
+        """
+            Move the data to the content list and add placeholders to the HTML string
+        """
         if data.strip():
             self._content_list.append(data)
             self._html += f"{{{'placeholder_'+str(self._index)}}}"
@@ -92,7 +102,6 @@ class HtmlXliffParser(HTMLParser):
         """
         Encode the html to base64. We also remove the outer div tag because wagtails adds the richtext div themselves.
         """
-        print(self._html)
         html_temp = self._html
         try:
             html_temp = html_temp.split('<div class="rich-text">')[1].rsplit(
@@ -129,7 +138,8 @@ class HtmlXliffParser(HTMLParser):
                 alt = value
             if key == "class":
                 image_format = value.split()[1].replace("-", "")
-        image_id = AltTextImage.objects.get(original_filename=alt).id
+        #TODO get image by another field (since original filename is no mo)
+        image_id = ImageModel.objects.get(original_filename=alt).id
         return f"<embed alt='{alt}' embedtype='image' format='{image_format}' id='{image_id}'/>"
 
     def _handle_iframe_tag(self, attrs):
@@ -155,7 +165,7 @@ class HtmlXliffParser(HTMLParser):
         """
             There are 6 different anchor types which can occur in a richtext:
                 Document link (/document/123/document)
-                Internal link (/en/zumtobel/)
+                Internal link (/en/page/)
                 External link (http://google.nl)
                 Mail link (mailto:example@email.com)
                 Telephone link (tel:0612345678)
@@ -170,13 +180,13 @@ class HtmlXliffParser(HTMLParser):
             return f"<a id='{document_id}' linktype='document'>"
         elif href.startswith("/"):
             url_parts = href.split("/")
-            top_level_page = ZGPage.objects.get(slug=f"{url_parts[2]}-{url_parts[1]}")
+            top_level_page = Page.objects.get(slug=f"{url_parts[2]}-{url_parts[1]}")
             if len(url_parts) == 4:
-                # If the href is "/en/zumtobel/", we get 4 parts so we can links directly
+                # If the href is "/en/page/", we get 4 parts so we can links directly
                 return f"<a id='{top_level_page.id}' linktype='page'>"
             else:
                 # Otherwise, we need to get a child of the top page by using the unique path and slug combination
-                page = ZGPage.objects.filter(path__startswith=top_level_page.path).get(
+                page = Page.objects.filter(path__startswith=top_level_page.path).get(
                     slug=url_parts[-2:][0]
                 )
                 return f"<a id='{page.id}' linktype='page'>"

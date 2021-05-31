@@ -5,18 +5,18 @@ from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 
-from zg.django.xliff.forms import DownloadForm, ImportForm
-from zg.django.xliff.helpers.page import PageHelper
+from ...forms import DownloadForm, ImportForm
+from ...helpers.page import PageHelper
 
 
-def test_download_view_get(admin_client, zg_page_factory):
-    page = zg_page_factory()
+def test_download_view_get(admin_client, page_factory):
+    page = page_factory()
     resp = admin_client.get(reverse("xliff:download", kwargs={"page_id": page.pk}))
     assert isinstance(resp.context["form"], DownloadForm)
 
 
-def test_download_view_post(admin_client, zg_page_factory, language_factory):
-    page = zg_page_factory()
+def test_download_view_post(admin_client, page_factory, language_factory):
+    page = page_factory()
     german = language_factory(code="de")
     resp = admin_client.post(
         reverse("xliff:download", kwargs={"page_id": page.pk}), {"language": german.pk}
@@ -24,18 +24,18 @@ def test_download_view_post(admin_client, zg_page_factory, language_factory):
     assert resp.status_code == 200
 
 
-def test_upload_view_get(admin_client, zg_page_factory):
-    page = zg_page_factory()
+def test_upload_view_get(admin_client, page_factory):
+    page = page_factory()
     resp = admin_client.get(reverse("xliff:upload", kwargs={"page_id": page.pk}))
     assert isinstance(resp.context["form"], ImportForm)
 
 
 def test_upload_view_post(
-    admin_client, zg_page_factory, site_factory, language_factory
+    admin_client, page_factory, site_factory, language_factory
 ):
     site = site_factory()
-    parent = zg_page_factory(parent=site.root_page)
-    page = zg_page_factory(parent=parent)
+    parent = page_factory(parent=site.root_page)
+    page = page_factory(parent=parent)
     de_lang = language_factory(code="de")
     german_parent = parent.create_translation(
         de_lang, copy_fields=True, parent=parent.get_parent()

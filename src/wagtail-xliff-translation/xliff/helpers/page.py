@@ -8,8 +8,8 @@ from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 
-from zg.django.xliff.constants import FileAttributes, MetaGroupAttributes
-from zg.django.xliff.utils import xliff_to_bool
+from ..constants import FileAttributes, MetaGroupAttributes
+from ..utils import xliff_to_bool
 
 
 class PageHelper:
@@ -79,7 +79,8 @@ class PageHelper:
                     "owner",
                 ]
             )
-            # ignore zgpage specific fields
+            # ignore zgpage specific fields 
+            #TODO remove if possible
             and not (
                 field.name
                 in [
