@@ -7,7 +7,7 @@ from django.utils.translation import ngettext as _n
 
 from wagtail.admin.widgets import AdminPageChooser
 
-from zg.django.website.models import ZGPage
+from wagtail.core.models import Page
 
 
 class DownloadForm(forms.Form):
@@ -79,10 +79,10 @@ class ImportForm(forms.Form):
         super().__init__(*args, **kwargs)
         page = TranslatablePage.objects.get(pk=page_pk).specific
         self.fields["parent_page"] = forms.ModelChoiceField(
-            queryset=ZGPage.objects.exclude(language=page.language),
+            queryset=Page.objects.exclude(language=page.language),
             required=False,
             widget=AdminPageChooser(  # noqa
-                show_edit_link=False, target_models=[ZGPage]
+                show_edit_link=False, target_models=[Page]
             ),
             help_text=mark_safe(
                 _(

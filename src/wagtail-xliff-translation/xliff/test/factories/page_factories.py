@@ -1,17 +1,19 @@
 import json
 import os
+from django.utils.translation import get_language
 
 import factory
 
+from wagtail_factories import PageFactory, 
 from django.conf import settings
 
 from wagtail.core.rich_text import RichText
+from wagtailtrans.models import Language
 
-from zg.django.website.factories import ZGPageFactory
-from zg.django.xliff.test.models import PageWithStreamField, PageWitRichText
+from ..models import PageWithStreamField, PageWitRichText
 
 
-class PageWitRichTextFactory(ZGPageFactory):
+class PageWitRichTextFactory(PageFactory):
     class Meta:
         model = PageWitRichText
 
@@ -26,7 +28,7 @@ class PageWitRichTextFactory(ZGPageFactory):
     )
 
 
-class PageWithStreamFieldFactory(ZGPageFactory):
+class PageWithStreamFieldFactory(PageFactory):
     class Meta:
         model = PageWithStreamField
 
@@ -40,3 +42,14 @@ class PageWithStreamFieldFactory(ZGPageFactory):
         with open(data_path) as json_file:
             loaded = json.load(json_file)
             return json.dumps(loaded)
+
+
+class LanguageFactory(factory.DjangoModelFactory):
+    code = factory.LazyFunction(get_language)
+    position = 0
+    is_default = True
+    live = True
+
+    class Meta:
+        model = Language
+        django_get_or_create = ("code",)

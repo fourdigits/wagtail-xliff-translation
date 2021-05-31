@@ -4,8 +4,8 @@ from xml.dom.minidom import parseString
 
 from django.conf import settings
 
-from zg.django.xliff.constants import FileAttributes, XliffElements
-from zg.django.xliff.helpers.page import PageHelper
+from ..constants import FileAttributes, XliffElements
+from ..helpers.page import PageHelper
 
 
 def get_sample_data(file):

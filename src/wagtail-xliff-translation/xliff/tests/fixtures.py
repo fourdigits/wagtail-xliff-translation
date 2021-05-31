@@ -1,15 +1,31 @@
 import pytest
+import wagtail_factories
 
-from zg.django.xliff.parsers.html_xliff import HtmlXliffParser
-from zg.django.xliff.test.factories import (
+from ..parsers.html_xliff import HtmlXliffParser
+from ..test.factories import (
     PageWithStreamFieldFactory,
     PageWitRichTextFactory,
+    LanguageFactory,
 )
 
 
 @pytest.fixture
 def html_parser():
     return HtmlXliffParser()
+
+@pytest.fixture
+def page_factory():
+    return wagtail_factories.PageFactory
+
+
+@pytest.fixture
+def site_factory():
+    return wagtail_factories.SiteFactory
+
+
+@pytest.fixture
+def language_factory():
+    return LanguageFactory
 
 
 @pytest.fixture
@@ -23,10 +39,10 @@ def page_with_streamfield_factory():
 
 
 @pytest.fixture
-def english_base(zg_page_factory, site_factory):
+def english_base(page_factory, site_factory):
     site = site_factory()
-    parent = zg_page_factory(parent=site.root_page)
-    english_page = zg_page_factory(
+    parent = page_factory(parent=site.root_page)
+    english_page = page_factory(
         parent=parent, title="english_page", slug="english_page"
     )
     return site, english_page

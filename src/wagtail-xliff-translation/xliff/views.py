@@ -12,8 +12,8 @@ from django.views.generic.detail import SingleObjectMixin
 
 from wagtail.core.models import Page
 
-from zg.django.xliff.forms import DownloadForm, ImportForm
-from zg.django.xliff.helpers.page import PageHelper
+from . import DownloadForm, ImportForm
+from .helpers import PageHelper
 
 
 class BaseView(SingleObjectMixin, TemplateView):

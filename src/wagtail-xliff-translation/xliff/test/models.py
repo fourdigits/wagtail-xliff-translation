@@ -1,19 +1,20 @@
 from django.db import models
 
 from wagtail.core import blocks
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import StreamField, RichTextField
+from wagtail.core.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.admin.edit_handlers import StreamFieldPanel
 
-from zg.django.website.models import RichTextField, StreamFieldPanel, ZGPage
-from zg.django.xliff.test import blocks as test_blocks
+from ..test import blocks as test_blocks
 
 
-class PageWitRichText(ZGPage):
+class PageWitRichText(Page):
     test_textfield = models.TextField(blank=True)
     test_richtextfield = RichTextField(blank=True)
 
 
-class PageWithStreamField(ZGPage):
+class PageWithStreamField(Page):
     test_streamfield = StreamField(
         [
             ("char_block", blocks.CharBlock(max_length=255)),
@@ -40,4 +41,4 @@ class PageWithStreamField(ZGPage):
         blank=True,
     )
 
-    content_panels = ZGPage.content_panels + [StreamFieldPanel("test_streamfield")]
+    content_panels = Page.content_panels + [StreamFieldPanel("test_streamfield")]

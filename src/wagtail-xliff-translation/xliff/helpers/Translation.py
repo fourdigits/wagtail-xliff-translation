@@ -3,8 +3,7 @@ import json
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
-from zg.django.xliff.parsers.xliff_wagtail import XliffWagtailParser
-
+from ..parsers.xliff_wagtail import XliffWagtailParser
 
 class TranslationHelper:
     def __init__(self, page):

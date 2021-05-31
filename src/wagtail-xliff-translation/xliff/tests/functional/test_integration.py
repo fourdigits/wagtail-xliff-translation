@@ -11,9 +11,9 @@ from django.core import serializers
 
 from wagtail.core.blocks import StreamValue
 
-from zg.django.xliff.tests.utils import get_object_ids
+from ...tests.utils import get_object_ids
 
-
+#TODO check if this test is relevant and either rewrite or remove (since it contains a lot of ZG factories)
 @pytest.mark.django_db
 def test_stream_data(
     zg_brand_homepage_factory,
