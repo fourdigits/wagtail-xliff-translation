@@ -1,0 +1,211 @@
+<?xml version="1.0" ?>
+<xliff srcLang="en" trgLang="de" version="2.0"
+    xmlns="urn:oasis:names:tc:xliff:document:2.0"
+    xmlns:mda="urn:oasis:names:tc:xliff:metadata:2.0"
+    xmlns:slr="urn:oasis:names:tc:xliff:sizerestriction:2.0">
+    <file>
+        <mda:metadata>
+            <mda:metaGroup category="object_nesting">
+                <mda:meta type="child">no</mda:meta>
+            </mda:metaGroup>
+        </mda:metadata>
+        <unit canResegment="no" id="title" name="title" slr:sizeRestriction="255" translate="yes" type="local:CharField">
+            <segment>
+                <source>english_richtext</source>
+                <target>german_richtext</target>
+            </segment>
+        </unit>
+        <unit canResegment="no" id="slug" name="slug" slr:sizeRestriction="255" translate="yes" type="local:SlugField">
+            <segment>
+                <source>english_richtext</source>
+                <target>german_richtext</target>
+            </segment>
+        </unit>
+        <group canResegment="no" id="test_streamfield" name="test_streamfield" translate="yes" type="local:StreamField">
+            <unit canResegment="no" id="char_block-0" name="char_block" translate="yes" type="local:char_block">
+                <segment>
+                    <source>text</source>
+                    <target>german text</target>
+                </segment>
+            </unit>
+            <unit canResegment="no" id="boolean_block-1" name="boolean_block" translate="no" type="local:boolean_block">
+                <segment>
+                    <source>True</source>
+                    <target>True</target>
+                </segment>
+            </unit>
+            <unit canResegment="no" id="text_block-2" name="text_block" translate="yes" type="local:text_block">
+                <segment>
+                    <source>text</source>
+                    <target>german text</target>
+                </segment>
+            </unit>
+            <unit canResegment="no" id="email_block-3" name="email_block" translate="yes" type="local:email_block">
+                <segment>
+                    <source>test@test.nl</source>
+                    <target>test@test.de</target>
+                </segment>
+            </unit>
+            <unit canResegment="no" id="url_block-4" name="url_block" translate="yes" type="local:url_block">
+                <segment>
+                    <source>http://www.fourdigits.nl</source>
+                    <target>http://www.fourdigits.de</target>
+                </segment>
+            </unit>
+            <unit canResegment="no" id="rich_text_block-5" name="rich_text_block" translate="yes" type="local:rich_text_block">
+                <segment>
+                    <header>
+                        <internal_file>PGg0PjxiPntwbGFjZWhvbGRlcl8wfTwvYj48L2g0PjxvbD48bGk+PGI+e3BsYWNlaG9sZGVyXzF9PC9iPjwvbGk+PC9vbD4=</internal_file>
+                    </header>
+                    <source>beautifull Richtext</source>
+                    <target>schöner richtext</target>
+                    <source>a bold list item</source>
+                    <target>ein fetter Listeneintrag</target>
+                </segment>
+            </unit>
+            <unit canResegment="no" id="raw_html_block-6" name="raw_html_block" translate="yes" type="local:raw_html_block">
+                <segment>
+                    <header>
+                        <internal_file>PGRpdiBjbGFzcz0icmF3aHRtbCI+e3BsYWNlaG9sZGVyXzB9PC9kaXY+</internal_file>
+                    </header>
+                    <source>rawhtmlblock</source>
+                    <target>rohhtmlblock</target>
+                </segment>
+            </unit>
+            <unit canResegment="no" id="blockquote_block-7" name="blockquote_block" translate="yes" type="local:blockquote_block">
+                <segment>
+                    <source>a blockquote</source>
+                    <target>ein Blockzitat</target>
+                </segment>
+            </unit>
+            <group canResegment="no" id="struct_block_0" name="struct_block" type="local:structural">
+                <unit canResegment="no" id="field_a-8" name="field_a" translate="yes" type="local:field_a">
+                    <segment>
+                        <source>simple struct field a</source>
+                        <target>einfaches Strukturfeld a</target>
+                    </segment>
+                </unit>
+                <unit canResegment="no" id="field_b-9" name="field_b" translate="yes" type="local:field_b">
+                    <segment>
+                        <source>simple struct field b</source>
+                        <target>einfaches Strukturfeld b</target>
+                    </segment>
+                </unit>
+            </group>
+            <group canResegment="no" id="rich_text_struct_block_1" name="rich_text_struct_block" type="local:structural">
+                <unit canResegment="no" id="field_a-10" name="field_a" translate="yes" type="local:field_a">
+                    <segment>
+                        <header>
+                            <internal_file>PHA+PGI+e3BsYWNlaG9sZGVyXzB9PC9iPjwvcD4=</internal_file>
+                        </header>
+                        <source>rich text struct block</source>
+                        <target>Rich-Text-Strukturblock</target>
+                    </segment>
+                </unit>
+                <unit canResegment="no" id="field_b-11" name="field_b" translate="yes" type="local:field_b">
+                    <segment>
+                        <header>
+                            <internal_file>PHA+PGI+e3BsYWNlaG9sZGVyXzB9PC9iPjwvcD4=</internal_file>
+                        </header>
+                        <source>rich text structblock</source>
+                        <target>Rich-Text-Strukturblock</target>
+                    </segment>
+                </unit>
+            </group>
+            <group canResegment="no" id="nested_struct_block_2" name="nested_struct_block" type="local:structural">
+                <group canResegment="no" id="child_2" name="child" type="local:structural-flat">
+                    <unit canResegment="no" id="field_a-12" name="field_a" translate="yes" type="local:field_a">
+                        <segment>
+                            <source>nested structblock field a</source>
+                            <target>verschachteltes Strukturblockfeld a</target>
+                        </segment>
+                    </unit>
+                    <unit canResegment="no" id="field_b-13" name="field_b" translate="yes" type="local:field_b">
+                        <segment>
+                            <source>nested structblock field b</source>
+                            <target>verschachteltes Strukturblockfeld b</target>
+                        </segment>
+                    </unit>
+                </group>
+            </group>
+            <group canResegment="no" id="list_block_4" name="list_block" type="local:stream">
+                <unit canResegment="no" id="list_block-item-14" name="list_block-item" translate="yes" type="local:flat">
+                    <segment>
+                        <source>list with text</source>
+                        <target>Liste mit Text</target>
+                    </segment>
+                </unit>
+                <unit canResegment="no" id="list_block-item-15" name="list_block-item" translate="yes" type="local:flat">
+                    <segment>
+                        <source>second item</source>
+                        <target/>
+                    </segment>
+                </unit>
+            </group>
+            <group canResegment="no" id="list_block_with_struct_block_5" name="list_block_with_struct_block" type="local:stream">
+                <group canResegment="no" id="local:structural-flat_5" name="local:structural-flat" type="local:structural-flat">
+                    <unit canResegment="no" id="field_a-16" name="field_a" translate="yes" type="local:field_a">
+                        <segment>
+                            <source>field a in listblock</source>
+                            <target>Feld a im Listenblock</target>
+                        </segment>
+                    </unit>
+                    <unit canResegment="no" id="field_b-17" name="field_b" translate="yes" type="local:field_b">
+                        <segment>
+                            <source>field b in list block</source>
+                            <target>Feld b im Listenblock</target>
+                        </segment>
+                    </unit>
+                </group>
+                <group canResegment="no" id="local:structural-flat_6" name="local:structural-flat" type="local:structural-flat">
+                    <unit canResegment="no" id="field_a-18" name="field_a" translate="yes" type="local:field_a">
+                        <segment>
+                            <source>field a in listblock</source>
+                            <target>Feld a im Listenblock</target>
+                        </segment>
+                    </unit>
+                    <unit canResegment="no" id="field_b-19" name="field_b" translate="yes" type="local:field_b">
+                        <segment>
+                            <source>field b in list block</source>
+                            <target>Feld b im Listenblock</target>
+                        </segment>
+                    </unit>
+                </group>
+            </group>
+            <group canResegment="no" id="stream_block_8" name="stream_block" type="local:stream">
+                <unit canResegment="no" id="char_block-20" name="char_block" translate="yes" type="local:char_block">
+                    <segment>
+                        <source>with a char block</source>
+                        <target>mit eines char block</target>
+                    </segment>
+                </unit>
+            </group>
+            <group canResegment="no" id="nested_streamblock_9" name="nested_streamblock" type="local:stream">
+                <group canResegment="no" id="child_9" name="child" type="local:stream">
+                    <unit canResegment="no" id="char_block-21" name="char_block" translate="yes" type="local:char_block">
+                        <segment>
+                            <source>very much nested char block</source>
+                            <target>sehr viel verschachtelter Zeichenblock</target>
+                        </segment>
+                    </unit>
+                </group>
+            </group>
+            <group canResegment="no" id="stream_block_with_struct_block_11" name="stream_block_with_struct_block" type="local:stream">
+                <group canResegment="no" id="child_11" name="child" type="local:structural">
+                    <unit canResegment="no" id="field_a-22" name="field_a" translate="yes" type="local:field_a">
+                        <segment>
+                            <source>nested_field_a</source>
+                            <target>verschachteltes Feld a</target>
+                        </segment>
+                    </unit>
+                    <unit canResegment="no" id="field_b-23" name="field_b" translate="yes" type="local:field_b">
+                        <segment>
+                            <source>nested_field_b</source>
+                            <target>verschachteltes Feld b</target>
+                        </segment>
+                    </unit>
+                </group>
+            </group>
+        </group>
+    </file>
+</xliff>
