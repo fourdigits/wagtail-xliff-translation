@@ -3,7 +3,7 @@ import re
 from xml.dom.minidom import parseString
 
 from django.conf import settings
-
+#TODO need to import from wagtail_xliff_translation
 from ..constants import FileAttributes, XliffElements
 from ..helpers.page import PageHelper
 

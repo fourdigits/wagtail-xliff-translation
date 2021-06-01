@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'wagtail-xliff-translation',
+    'test_app',
     "wagtail.contrib.search_promotions",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     "wagtail.contrib.routable_page",
     "wagtail.sites",
     "wagtail.core",
+    "wagtailtrans",
     "taggit",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,7 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'test_app',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

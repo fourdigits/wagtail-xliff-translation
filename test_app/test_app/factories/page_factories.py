@@ -4,7 +4,7 @@ from django.utils.translation import get_language
 
 import factory
 
-from wagtail_factories import PageFactory, 
+from wagtail_factories import PageFactory
 from django.conf import settings
 
 from wagtail.core.rich_text import RichText
@@ -44,7 +44,7 @@ class PageWithStreamFieldFactory(PageFactory):
             return json.dumps(loaded)
 
 
-class LanguageFactory(factory.DjangoModelFactory):
+class LanguageFactory(factory.django.DjangoModelFactory):
     code = factory.LazyFunction(get_language)
     position = 0
     is_default = True

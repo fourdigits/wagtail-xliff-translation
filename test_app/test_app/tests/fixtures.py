@@ -1,13 +1,13 @@
 import pytest
 import wagtail_factories
-
-from ..parsers.html_xliff import HtmlXliffParser
-from ..test.factories import (
+#TODO need to import from wagtail_xliff_translation
+# from ..parsers.html_xliff import HtmlXliffParser
+from wagtail_xliff_translation.xliff.parsers import HtmlXliffParser
+from ..factories import (
     PageWithStreamFieldFactory,
     PageWitRichTextFactory,
     LanguageFactory,
 )
-
 
 @pytest.fixture
 def html_parser():
