@@ -1,10 +1,10 @@
-from ...parsers.xliff_wagtail import XliffWagtailParser
+from wagtail_xliff_translation.xliff.parsers.xliff_wagtail import XliffWagtailParser
 import pytest
 
 from django.core import serializers
 from django.core.serializers.base import DeserializationError
 
-from ...tests.utils import get_condensed_sample_data, get_object_ids
+from ..utils import get_condensed_sample_data, get_object_ids
 
 pytestmark = pytest.mark.django_db
 

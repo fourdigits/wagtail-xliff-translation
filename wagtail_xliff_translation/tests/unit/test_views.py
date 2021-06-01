@@ -8,9 +8,9 @@ from django.contrib.auth.models import Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.base import DeserializationError, SerializationError
 from django.urls import reverse
-#TODO need to import from wagtail_xliff_translation
-from ...serializers.wagtail_xliff import WagtailXliffSerializer
-from ...serializers.xliff_wagtail import XliffWagtailDeserializer
+
+from wagtail_xliff_translation.xliff.serializers.wagtail_xliff import WagtailXliffSerializer
+from wagtail_xliff_translation.xliff.serializers.xliff_wagtail import XliffWagtailDeserializer
 
 pytestmark = pytest.mark.django_db
 

@@ -4,9 +4,8 @@ import xml.etree.ElementTree as ET
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
-#TODO need to import from wagtail_xliff_translation
-from ...forms import DownloadForm, ImportForm
-from ...helpers.page import PageHelper
+from wagtail_xliff_translation.xliff.forms import DownloadForm, ImportForm
+from wagtail_xliff_translation.xliff.helpers.page import PageHelper
 
 
 def test_download_view_get(admin_client, page_factory):

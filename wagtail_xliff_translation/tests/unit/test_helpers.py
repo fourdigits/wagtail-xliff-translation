@@ -1,8 +1,7 @@
 import pytest
 
 from django.db.models import DurationField
-#TODO need to import from wagtail_xliff_translation
-from ...helpers.page import PageHelper
+from wagtail_xliff_translation.xliff.helpers.page import PageHelper
 
 pytestmark = pytest.mark.django_db
 

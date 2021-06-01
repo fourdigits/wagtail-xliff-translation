@@ -1,9 +1,7 @@
 import pytest
 import wagtail_factories
-#TODO need to import from wagtail_xliff_translation
-# from ..parsers.html_xliff import HtmlXliffParser
-from wagtail_xliff_translation.xliff.parsers import HtmlXliffParser
-from ..factories import (
+from wagtail_xliff_translation.xliff.parsers.html_xliff import HtmlXliffParser
+from ..test_app.factories import (
     PageWithStreamFieldFactory,
     PageWitRichTextFactory,
     LanguageFactory,

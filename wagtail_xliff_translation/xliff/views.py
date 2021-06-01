@@ -12,7 +12,7 @@ from django.views.generic.detail import SingleObjectMixin
 
 from wagtail.core.models import Page
 
-from . import DownloadForm, ImportForm
+from wagtail_xliff_translation.xliff.forms import DownloadForm, ImportForm
 from .helpers import PageHelper
 
 

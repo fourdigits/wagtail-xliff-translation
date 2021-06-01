@@ -2,7 +2,7 @@ import pytest
 
 from django.core import serializers
 
-from ...utils import sample_data_equals
+from ..utils import sample_data_equals
 
 pytestmark = pytest.mark.django_db
 
