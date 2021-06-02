@@ -9,8 +9,8 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.base import DeserializationError, SerializationError
 from django.urls import reverse
 
-from wagtail_xliff_translation.xliff.serializers.wagtail_xliff import WagtailXliffSerializer
-from wagtail_xliff_translation.xliff.serializers.xliff_wagtail import XliffWagtailDeserializer
+from wagtail_xliff_translation.serializers.wagtail_xliff import WagtailXliffSerializer
+from wagtail_xliff_translation.serializers.xliff_wagtail import XliffWagtailDeserializer
 
 pytestmark = pytest.mark.django_db
 

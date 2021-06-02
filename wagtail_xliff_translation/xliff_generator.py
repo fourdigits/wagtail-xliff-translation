@@ -4,7 +4,7 @@ from django.utils.xmlutils import SimplerXMLGenerator
 from wagtail.core.fields import RichTextField
 from wagtail.core.rich_text import RichText
 
-from . import MetaAttributes, MetaGroupAttributes, XliffElements
+from .constants import MetaAttributes, MetaGroupAttributes, XliffElements
 from .parsers.html_xliff import HtmlXliffParser
 
 

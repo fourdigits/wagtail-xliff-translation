@@ -4,13 +4,14 @@ import xml.etree.ElementTree as ET
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
-from wagtail_xliff_translation.xliff.forms import DownloadForm, ImportForm
-from wagtail_xliff_translation.xliff.helpers.page import PageHelper
+from wagtail_xliff_translation.forms import DownloadForm, ImportForm
+from wagtail_xliff_translation.helpers.page import PageHelper
 
 
 def test_download_view_get(admin_client, page_factory):
     page = page_factory()
     resp = admin_client.get(reverse("xliff:download", kwargs={"page_id": page.pk}))
+    breakpoint()
     assert isinstance(resp.context["form"], DownloadForm)
 
 

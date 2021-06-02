@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'test_app',
     'wagtail_xliff_translation',
+    "wagtailtrans",
     "wagtail.contrib.search_promotions",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -48,7 +49,6 @@ INSTALLED_APPS = [
     "wagtail.contrib.routable_page",
     "wagtail.sites",
     "wagtail.core",
-    "wagtailtrans",
     "taggit",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -63,6 +63,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtailtrans.middleware.TranslationMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -140,3 +142,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 WAGTAIL_APPEND_SLASH = True
+
+WAGTAIL_SITE_NAME = "Test site"
+
+WAGTAILTRANS_SYNC_TREE = False
+WAGTAILTRANS_LANGUAGES_PER_SITE = False

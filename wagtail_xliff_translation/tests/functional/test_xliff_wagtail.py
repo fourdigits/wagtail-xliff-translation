@@ -1,4 +1,4 @@
-from wagtail_xliff_translation.xliff.parsers.xliff_wagtail import XliffWagtailParser
+from wagtail_xliff_translation.parsers.xliff_wagtail import XliffWagtailParser
 import pytest
 
 from django.core import serializers

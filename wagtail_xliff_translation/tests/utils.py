@@ -3,8 +3,8 @@ import re
 from xml.dom.minidom import parseString
 
 from django.conf import settings
-from wagtail_xliff_translation.xliff.constants import FileAttributes, XliffElements
-from wagtail_xliff_translation.xliff.helpers.page import PageHelper
+from wagtail_xliff_translation.constants import FileAttributes, XliffElements
+from wagtail_xliff_translation.helpers.page import PageHelper
 
 
 def get_sample_data(file):

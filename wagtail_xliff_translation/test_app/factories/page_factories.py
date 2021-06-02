@@ -10,12 +10,12 @@ from django.conf import settings
 from wagtail.core.rich_text import RichText
 from wagtailtrans.models import Language
 
-from ..models import PageWithStreamField, PageWitRichText
+from ..models import PageWithStreamField, PageWithRichText
 
 
-class PageWitRichTextFactory(PageFactory):
+class PageWithRichTextFactory(PageFactory):
     class Meta:
-        model = PageWitRichText
+        model = PageWithRichText
 
     test_textfield = "a longer sentence with a lot of content"
     test_richtextfield = RichText(

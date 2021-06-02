@@ -9,7 +9,7 @@ from wagtail.admin.edit_handlers import StreamFieldPanel
 from . import blocks as test_blocks
 
 
-class PageWitRichText(Page):
+class PageWithRichText(Page):
     test_textfield = models.TextField(blank=True)
     test_richtextfield = RichTextField(blank=True)
 

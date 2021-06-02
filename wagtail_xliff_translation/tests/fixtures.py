@@ -1,9 +1,9 @@
 import pytest
 import wagtail_factories
-from wagtail_xliff_translation.xliff.parsers.html_xliff import HtmlXliffParser
+from wagtail_xliff_translation.parsers.html_xliff import HtmlXliffParser
 from ..test_app.factories import (
     PageWithStreamFieldFactory,
-    PageWitRichTextFactory,
+    PageWithRichTextFactory,
     LanguageFactory,
 )
 
@@ -28,7 +28,7 @@ def language_factory():
 
 @pytest.fixture
 def page_with_richtext_factory():
-    return PageWitRichTextFactory
+    return PageWithRichTextFactory
 
 
 @pytest.fixture

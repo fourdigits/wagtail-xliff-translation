@@ -12,7 +12,7 @@ from django.views.generic.detail import SingleObjectMixin
 
 from wagtail.core.models import Page
 
-from wagtail_xliff_translation.xliff.forms import DownloadForm, ImportForm
+from wagtail_xliff_translation.forms import DownloadForm, ImportForm
 from .helpers import PageHelper
 
 
@@ -31,6 +31,7 @@ class BaseView(SingleObjectMixin, TemplateView):
     def get_object(self, **kwargs):
         page = get_object_or_404(Page, id=self.kwargs["page_id"]).specific
         # Root has no locale, and isn't translatable.
+        # breakpoint()
         if page.is_root() or not hasattr(page, "language"):
             raise Http404
         return page

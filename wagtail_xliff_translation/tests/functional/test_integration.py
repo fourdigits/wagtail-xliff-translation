@@ -16,15 +16,15 @@ from ..utils import get_object_ids
 #TODO check if this test is relevant and either rewrite or remove (since it contains a lot of ZG factories)
 @pytest.mark.django_db
 def test_stream_data(
-    zg_brand_homepage_factory,
+    page_factory,
     testsite,
     zg_marketing_page_factory,
     zg_products_page_factory,
     inspiration_detail_page_factory,
     language_factory,
 ):
-    homepage = zg_brand_homepage_factory(parent=testsite.root_page)
-    products = zg_products_page_factory(parent=homepage)
+    homepage = page_factory(parent=testsite.root_page)
+    products = zg_products_page_factory(parent=testsite.root_page)
     marketing_page = zg_marketing_page_factory(
         parent=products,
         title="marketingpage",
