@@ -8,7 +8,7 @@ from wagtail_factories import PageFactory
 from django.conf import settings
 
 from wagtail.core.rich_text import RichText
-from wagtailtrans.models import Language
+from wagtail.core.models import Locale
 
 from ..models import PageWithStreamField, PageWithRichText
 
@@ -51,5 +51,5 @@ class LanguageFactory(factory.django.DjangoModelFactory):
     live = True
 
     class Meta:
-        model = Language
-        django_get_or_create = ("code",)
+        model = Locale
+        django_get_or_create = ("language_code",)
