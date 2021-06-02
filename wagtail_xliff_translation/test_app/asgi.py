@@ -1,5 +1,5 @@
 """
-ASGI config for foo project.
+ASGI config for wagtail_xliff_translation project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'foo.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wagtail_xliff_translation.test_app.settings')
 
 application = get_asgi_application()
