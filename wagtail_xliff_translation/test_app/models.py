@@ -42,3 +42,7 @@ class PageWithStreamField(Page):
     )
 
     content_panels = Page.content_panels + [StreamFieldPanel("test_streamfield")]
+
+
+class BasePage(Page):
+    pass

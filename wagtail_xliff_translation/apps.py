@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class XliffConfig(AppConfig):
-    name = "xliff"
-    label = "xliff"
+    name = "wagtail_xliff_translation"
+    label = "wagtail_xliff_translation"

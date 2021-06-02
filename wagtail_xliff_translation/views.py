@@ -31,8 +31,7 @@ class BaseView(SingleObjectMixin, TemplateView):
     def get_object(self, **kwargs):
         page = get_object_or_404(Page, id=self.kwargs["page_id"]).specific
         # Root has no locale, and isn't translatable.
-        # breakpoint()
-        if page.is_root() or not hasattr(page, "language"):
+        if page.is_root() or not hasattr(page, "locale"):
             raise Http404
         return page
 
@@ -60,7 +59,7 @@ class DownloadView(BaseView):
     def post(self, request, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            language = form.cleaned_data["language"]
+            locale = form.cleaned_data["language"]
             include_subtree = form.cleaned_data["include_subtree"]
 
             objects = [self.object]
@@ -69,7 +68,7 @@ class DownloadView(BaseView):
                     objects.append(obj.specific)
             try:
                 data = serializers.serialize(
-                    "xliff", objects, target_language=language.code
+                    "xliff", objects, target_language=locale.language_code
                 )
             except SerializationError as err:
                 messages.error(request, str(err))
@@ -77,7 +76,7 @@ class DownloadView(BaseView):
                 return self.render_to_response(context)
 
             timestamp = timezone.now().strftime("%Y%m%d-%H%M")
-            filename = f"{self.object.language.code.upper()}2{language.code.upper()}-{str(self.object.id)}-{timestamp}.xliff"
+            filename = f"{self.object.locale.language_code.upper()}2{locale.language_code.upper()}-{str(self.object.id)}-{timestamp}.xliff"
             response = HttpResponse(data, content_type="application/x-xliff+xml")
             response["Content-Disposition"] = f'attachment; filename="{filename}"'
             messages.success(request, self.get_success_message())

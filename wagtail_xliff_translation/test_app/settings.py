@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'test_app',
     'wagtail_xliff_translation',
-    "wagtailtrans",
     "wagtail.contrib.search_promotions",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     "wagtail.contrib.modeladmin",
     "wagtail.contrib.routable_page",
     "wagtail.sites",
+    'wagtail.locales',
     "wagtail.core",
     "taggit",
     'django.contrib.admin',
@@ -63,12 +63,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'wagtail.core.middleware.SiteMiddleware',
-    'wagtailtrans.middleware.TranslationMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'test_app.urls'
@@ -130,6 +129,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+WAGTAIL_I18N_ENABLED = True
 
 USE_L10N = True
 
@@ -145,5 +145,10 @@ WAGTAIL_APPEND_SLASH = True
 
 WAGTAIL_SITE_NAME = "Test site"
 
-WAGTAILTRANS_SYNC_TREE = False
-WAGTAILTRANS_LANGUAGES_PER_SITE = False
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
+    ('en', "English"),
+    ('fr', "French"),
+    ('es', "Spanish"),
+]
+
+SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}

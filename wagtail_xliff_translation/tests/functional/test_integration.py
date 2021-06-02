@@ -15,6 +15,7 @@ from ..utils import get_object_ids
 
 #TODO check if this test is relevant and either rewrite or remove (since it contains a lot of ZG factories)
 @pytest.mark.django_db
+@pytest.mark.skip(reason="Needs a fix")
 def test_stream_data(
     page_factory,
     site,
