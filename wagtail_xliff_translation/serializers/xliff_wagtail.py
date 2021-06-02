@@ -137,7 +137,7 @@ class XliffWagtailDeserializer(base.Deserializer):
             intended_translation_parent = self.determine_appropriate_translation_parent(
                 parent, language
             )
-        if isinstance(intended_translation_parent, TranslatableSiteRootPage):
+        if isinstance(intended_translation_parent, Site):
             raise base.DeserializationError(
                 "Unable to find a decent parent for this page. Please enter a manual parent for this page on the import page"
             )
