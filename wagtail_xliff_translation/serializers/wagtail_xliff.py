@@ -1,5 +1,3 @@
-from wagtailtrans.models import Language, TranslatablePage
-
 from django.conf import settings
 from django.core.serializers import base
 from django.core.serializers.base import SerializationError
@@ -8,6 +6,7 @@ from django.utils.translation import ugettext as _
 
 from wagtail.core.blocks import PageChooserBlock, StreamValue, StructValue
 from wagtail.core.fields import StreamField
+from wagtail.core.models import Locale, Page
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -36,17 +35,17 @@ class WagtailXliffSerializer(base.Serializer):
         self.selected_fields = fields
         if not self.page_helper.all_translatable_pages(queryset):
             raise base.SerializationError(
-                _("all instances must be of type %s" % TranslatablePage.__name__)
+                _("all instances must be of type %s" % Page.__name__)
             )
         if not self.page_helper.all_same_src_language(queryset):
             raise base.SerializationError(
                 _("all instances must have the same source language")
             )
 
-        self.src_language_code = queryset[0].language.code
+        self.src_language_code = queryset[0].locale.language_code
         self.target_language_code = self.options["target_language"]
 
-        if not Language.objects.filter(code=self.target_language_code).exists():
+        if not Locale.objects.filter(language_code=self.target_language_code).exists():
             raise base.SerializationError(_("invalid target language"))
 
         self.start_serialization()

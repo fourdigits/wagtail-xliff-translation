@@ -1,5 +1,3 @@
-from wagtailtrans.models import Language, TranslatablePage
-
 from django import forms
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -7,12 +5,12 @@ from django.utils.translation import ngettext as _n
 
 from wagtail.admin.widgets import AdminPageChooser
 
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Locale
 
 
 class DownloadForm(forms.Form):
     language = forms.ModelChoiceField(
-        label=_("Target locale"), queryset=Language.objects.all()
+        label=_("Target locale"), queryset=Locale.objects.all()
     )
     include_subtree = forms.BooleanField(
         required=False,
@@ -22,9 +20,8 @@ class DownloadForm(forms.Form):
 
     def __init__(self, instance, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self.fields["language"].queryset = Language.objects.exclude(
-            code=instance.language.code
+        self.fields["language"].queryset = Locale.objects.exclude(
+            language_code=instance.locale.language_code
         )
 
         hide_include_subtree = True
@@ -77,9 +74,9 @@ class ImportForm(forms.Form):
 
     def __init__(self, page_pk, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        page = TranslatablePage.objects.get(pk=page_pk).specific
+        page = Page.objects.get(pk=page_pk).specific
         self.fields["parent_page"] = forms.ModelChoiceField(
-            queryset=Page.objects.exclude(language=page.language),
+            queryset=Page.objects.exclude(locale=page.locale),
             required=False,
             widget=AdminPageChooser(  # noqa
                 show_edit_link=False, target_models=[Page]

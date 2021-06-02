@@ -1,5 +1,4 @@
 from treebeard.mp_tree import MP_Node
-from wagtailtrans.models import TranslatablePage
 
 from django.apps import apps
 from django.db.models import fields
@@ -28,17 +27,21 @@ class PageHelper:
     def get_instance_from_node(file_node):
         # Get the page that is to be translated
         xliff_id = file_node.getAttribute(FileAttributes.ID)
-        pk, app_label, model_str = xliff_id.split("_")
+        # pk, app_label, model_str = xliff_id.split("_")
+        temp = xliff_id.split("_")
+        pk = temp[0]
+        app_label = f"{temp[1]}_{temp[2]}"
+        model_str = temp[3]
         Model = apps.get_model(app_label=app_label, model_name=model_str)
         return Model.objects.get(pk=pk)
 
     @staticmethod
     def all_translatable_pages(queryset):
-        return all(isinstance(obj, TranslatablePage) for obj in queryset)
+        return all(isinstance(obj, Page) for obj in queryset)
 
     @staticmethod
     def all_same_src_language(queryset):
-        return all(obj.language == queryset[0].language for obj in queryset)
+        return all(obj.locale == queryset[0].locale for obj in queryset)
 
     def is_translation_child(self, queryset):
         return self.page.get_parent().specific in queryset
