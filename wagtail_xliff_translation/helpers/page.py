@@ -27,11 +27,11 @@ class PageHelper:
     def get_instance_from_node(file_node):
         # Get the page that is to be translated
         xliff_id = file_node.getAttribute(FileAttributes.ID)
-        # pk, app_label, model_str = xliff_id.split("_")
         temp = xliff_id.split("_")
         pk = temp[0]
-        app_label = f"{temp[1]}_{temp[2]}"
-        model_str = temp[3]
+        # strip the first and last item.
+        app_label = "_".join(temp[1:-1])
+        model_str = temp[-1]
         Model = apps.get_model(app_label=app_label, model_name=model_str)
         return Model.objects.get(pk=pk)
 
