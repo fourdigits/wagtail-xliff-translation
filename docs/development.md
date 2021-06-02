@@ -13,6 +13,18 @@ With your preferred virtualenv activated, install the package in development mod
 python -m pip install -e '.[test,docs]' -U
 ```
 
+Run tests:
+
+```shell
+pytest
+```
+
+The test app can be managed (runserver, makemigrations, etc):
+
+```shell
+python manage.py makemigrations test_app
+```
+
 ## Deploy docs
 
 Deploy docs to Github pages:
