@@ -1,11 +1,11 @@
 # Wagtail XLIFF Translation
 
-*Wagtail XLIFF Translation* is a Wagtail library for converting a Wagtail website to XLIFF (XML Localization Interchange File Format) and back. 
-It allows translators to work with -XLIFF based- translation software. 
+_Wagtail XLIFF Translation_ is a Wagtail library for converting a Wagtail website to XLIFF (XML Localization Interchange File Format) and back.
+It allows translators to work with -XLIFF based- translation software.
 
 ## What does it do?
 
-Wagtail XLIFF Translation provides a download view in the Wagtail admin to export site contents to XLIFF file. 
+Wagtail XLIFF Translation provides a download view in the Wagtail admin to export site contents to XLIFF file.
 Once the file is translated, it can be uploaded to create a translated site tree.
 
 Exporting and importing a sub-tree, or a single page is supported.
@@ -25,3 +25,5 @@ pip install wagtail-xliff-translation
 ```
 
 Add `'wagtail-xliff-translation'` to your project's `INSTALLED_APPS`.
+
+Add 'SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}' to your project's settings.
