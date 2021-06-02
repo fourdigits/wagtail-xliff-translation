@@ -42,8 +42,7 @@ def test_download_view_with_included_subtree(
     assert resp.status_code == 200
 
 
-def test_download_view_with_root_page(admin_client, site_factory):
-    site = site_factory()
+def test_download_view_with_root_page(admin_client, site):
     resp = admin_client.post(
         reverse("xliff:download", kwargs={"page_id": site.root_page.pk}), follow=True
     )
