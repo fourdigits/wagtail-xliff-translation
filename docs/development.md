@@ -25,12 +25,18 @@ The test app can be managed (runserver, makemigrations, etc):
 python manage.py makemigrations test_app
 ```
 
-## Deploy docs
+## Documentation
 
-Deploy docs to Github pages:
+Run the documentation locally:
+
+```shell
+mkdocs serve
+```
+
+Deploy the documentation to Github pages:
 
 ```shell
 mkdocs gh-deploy
 ```
 
-Check https://fourdigits.github.io/wagtail-xliff-translation/
+See [https://fourdigits.github.io/wagtail-xliff-translation/](https://fourdigits.github.io/wagtail-xliff-translation/)

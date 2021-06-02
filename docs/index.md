@@ -14,7 +14,6 @@ Exporting and importing a sub-tree, or a single page is supported.
 
 - Related objects (such as images, documents, and snippets) are not translated or duplicated.
 - Pages will be in draft mode. Pages need to be reviewed and published.
-- ...
 
 ## Installation
 
@@ -24,6 +23,20 @@ To install:
 pip install wagtail-xliff-translation
 ```
 
-Add `'wagtail-xliff-translation'` to your project's `INSTALLED_APPS`.
+In settings.py:
 
-Add 'SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}' to your project's settings.
+- Add `'wagtail-xliff-translation'` to `INSTALLED_APPS`.
+- Add `'SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}'` setting.
+
+Like so:
+
+```django
+# settings.py
+
+INSTALLED_APPS = [
+    'wagtail-xliff-translation',
+    ...
+]
+
+SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}
+```
