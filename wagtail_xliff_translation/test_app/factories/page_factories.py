@@ -4,14 +4,37 @@ from django.utils.translation import get_language
 
 import factory
 
-from wagtail_factories import PageFactory
+import wagtail_factories
 from django.conf import settings
+from django.utils.text import slugify
 
 from wagtail.core.rich_text import RichText
-from wagtail.core.models import Locale
+from wagtail.core.models import Locale, Page
 
 from ..models import PageWithStreamField, PageWithRichText
 
+
+class LocaleFactory(factory.django.DjangoModelFactory):
+    language_code = factory.LazyFunction(get_language)
+
+    class Meta:
+        model = Locale
+        django_get_or_create = ("language_code",)
+
+
+class PageFactory(wagtail_factories.PageFactory):
+    locale = factory.SubFactory(LocaleFactory)
+    title = "Test page"
+    slug = factory.LazyAttribute(lambda obj: slugify(obj.title))
+    path = factory.Sequence(lambda n=1: f"00010001000{n}")
+    depth = 2
+
+    # path = "000100010001"
+    # depth = 2
+    
+    class Meta:
+        model = Page
+        django_get_or_create = ("slug",)
 
 class PageWithRichTextFactory(PageFactory):
     class Meta:
@@ -22,7 +45,7 @@ class PageWithRichTextFactory(PageFactory):
         """
         <h1>hoeba</h1>
         <img href='/link-to-kek/' />
-        <a href='/link-to-kek/'>kek</a>
+        <a href='http://google.nl'>kek</a>
         <bold>fancy bold stuff</bold>
         """
     )
@@ -42,14 +65,3 @@ class PageWithStreamFieldFactory(PageFactory):
         with open(data_path) as json_file:
             loaded = json.load(json_file)
             return json.dumps(loaded)
-
-
-class LanguageFactory(factory.django.DjangoModelFactory):
-    code = factory.LazyFunction(get_language)
-    position = 0
-    is_default = True
-    live = True
-
-    class Meta:
-        model = Locale
-        django_get_or_create = ("language_code",)

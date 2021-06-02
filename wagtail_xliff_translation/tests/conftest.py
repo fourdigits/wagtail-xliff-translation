@@ -2,7 +2,7 @@ import pytest
 import wagtail_factories
 from pytest_factoryboy import register
 from test_app.factories import (
-    LanguageFactory,
+    LocaleFactory,
     PageFactory,
     PageWithRichTextFactory,
     PageWithStreamFieldFactory,
@@ -12,7 +12,7 @@ from wagtail_xliff_translation.parsers.html_xliff import HtmlXliffParser
 
 register(PageFactory)
 register(PageWithRichTextFactory)
-register(LanguageFactory)
+register(LocaleFactory)
 register(wagtail_factories.SiteFactory)
 
 
@@ -22,8 +22,8 @@ def html_parser():
 
 
 @pytest.fixture
-def language_factory():
-    return LanguageFactory
+def locale_factory():
+    return LocaleFactory
 
 
 @pytest.fixture
@@ -59,32 +59,26 @@ def english_streamfield(site, page_with_streamfield_factory):
 
 
 @pytest.fixture
-def english_german_base(english_base, language_factory):
+def english_german_base(english_base, locale_factory):
     site, english_page = english_base
-    german_language = language_factory(code="de", is_default=False)
-    english_page.get_parent().create_translation(
-        german_language, copy_fields=True, parent=site.root_page
-    )
+    german_language = locale_factory(language_code="de")
+    english_page.get_parent().copy_for_translation(german_language)
     return site, english_page, german_language
 
 
 @pytest.fixture
-def english_richtext_german_base(english_richtext, language_factory):
+def english_richtext_german_base(english_richtext, locale_factory):
     site, english_page = english_richtext
-    german_language = language_factory(code="de", is_default=False)
-    english_page.get_parent().create_translation(
-        german_language, copy_fields=True, parent=site.root_page
-    )
+    german_language = locale_factory(language_code="de")
+    english_page.get_parent().copy_for_translation(german_language)
     return site, english_page, german_language
 
 
 @pytest.fixture
-def english_streamfield_german_base(english_streamfield, language_factory):
+def english_streamfield_german_base(english_streamfield, locale_factory):
     site, english_page = english_streamfield
-    german_language = language_factory(code="de", is_default=False)
-    english_page.get_parent().create_translation(
-        german_language, copy_fields=True, parent=site.root_page
-    )
+    german_language = locale_factory(code="de")
+    english_page.get_parent().copy_for_translation(german_language)
     return site, english_page, german_language
 
 

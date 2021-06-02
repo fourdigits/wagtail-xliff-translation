@@ -2,10 +2,10 @@ import pytest
 
 from django.urls import reverse
 
-pytestmark = pytest.mark.skip
-
+@pytest.mark.skip(reason="buttons not in context[36]")
 @pytest.mark.django_db
 def test_xliff_more_buttons(admin_client, page_factory):
+    breakpoint()
     page_factory()
     resp = admin_client.get(reverse("wagtailadmin_explore_root"))
     # assert the last more button is download xliff
