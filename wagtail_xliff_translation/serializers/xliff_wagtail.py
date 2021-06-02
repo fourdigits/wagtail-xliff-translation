@@ -158,9 +158,8 @@ class XliffWagtailDeserializer(base.Deserializer):
         return translation_target_page
 
     def handle_object(self, file_node, is_translation_child):
-        page, target_lang_instance = self.validate_object(file_node)
-        translation_helper = TranslationHelper(page)
-        src_page, is_canonical = translation_helper.src_page
+        src_page, target_lang_instance = self.validate_object(file_node)
+        translation_helper = TranslationHelper(src_page)
         if not is_translation_child and self.parent_page:
             # This flow should only be followed once, on the highest file node. It creates a translation of the page
             # underneath the page that has been entered in the upload form (if there is a page)
