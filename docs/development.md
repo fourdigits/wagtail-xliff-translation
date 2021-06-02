@@ -10,7 +10,19 @@ cd wagtail-xliff-translation
 With your preferred virtualenv activated, install the package in development mode with the included testing and documentation dependencies:
 
 ```shell
-python -m pip install -e '.[testing,docs]' -U
+python -m pip install -e '.[test,docs]' -U
+```
+
+Run tests:
+
+```shell
+pytest
+```
+
+The test app can be managed (runserver, makemigrations, etc):
+
+```shell
+python manage.py makemigrations test_app
 ```
 
 ## Deploy docs
