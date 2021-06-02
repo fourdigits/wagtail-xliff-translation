@@ -11,7 +11,6 @@ from wagtail_xliff_translation.helpers.page import PageHelper
 def test_download_view_get(admin_client, page_factory):
     page = page_factory()
     resp = admin_client.get(reverse("xliff:download", kwargs={"page_id": page.pk}))
-    breakpoint()
     assert isinstance(resp.context["form"], DownloadForm)
 
 
@@ -31,9 +30,8 @@ def test_upload_view_get(admin_client, page_factory):
 
 
 def test_upload_view_post(
-    admin_client, page_factory, site_factory, language_factory
+    admin_client, page_factory, site, language_factory
 ):
-    site = site_factory()
     parent = page_factory(parent=site.root_page)
     page = page_factory(parent=parent)
     de_lang = language_factory(code="de")

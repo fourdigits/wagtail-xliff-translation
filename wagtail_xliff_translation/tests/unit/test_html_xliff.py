@@ -1,15 +1,15 @@
 def test_flat_html(html_parser):
     html_parser.feed(
-        "<a>hello world</a>hoebakek<ol><li>item_1</li><li>item_2</li></ol>"
+        "<a href='https://google.nl'>hello world</a>hoebakek<ol><li>item_1</li><li>item_2</li></ol>"
     )
     assert html_parser.content_list == ["hello world", "hoebakek", "item_1", "item_2"]
     assert (
         html_parser.html
-        == "<a>{placeholder_0}</a>{placeholder_1}<ol><li>{placeholder_2}</li><li>{placeholder_3}</li></ol>"
+        == "<a href='https://google.nl'>{placeholder_0}</a>{placeholder_1}<ol><li>{placeholder_2}</li><li>{placeholder_3}</li></ol>"
     )
     assert (
         html_parser.encode_html()
-        == "PGE+e3BsYWNlaG9sZGVyXzB9PC9hPntwbGFjZWhvbGRlcl8xfTxvbD48bGk+e3BsYWNlaG9sZGVyXzJ9PC9saT48bGk+e3BsYWNlaG9sZGVyXzN9PC9saT48L29sPg=="
+        == "PGEgaHJlZj0naHR0cHM6Ly9nb29nbGUubmwnPntwbGFjZWhvbGRlcl8wfTwvYT57cGxhY2Vob2xkZXJfMX08b2w+PGxpPntwbGFjZWhvbGRlcl8yfTwvbGk+PGxpPntwbGFjZWhvbGRlcl8zfTwvbGk+PC9vbD4="
     )
 
     html_parser.reset()

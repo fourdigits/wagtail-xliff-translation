@@ -17,14 +17,14 @@ from ..utils import get_object_ids
 @pytest.mark.django_db
 def test_stream_data(
     page_factory,
-    testsite,
+    site,
     zg_marketing_page_factory,
     zg_products_page_factory,
     inspiration_detail_page_factory,
     language_factory,
 ):
-    homepage = page_factory(parent=testsite.root_page)
-    products = zg_products_page_factory(parent=testsite.root_page)
+    homepage = page_factory(parent=site.root_page)
+    products = zg_products_page_factory(parent=site.root_page)
     marketing_page = zg_marketing_page_factory(
         parent=products,
         title="marketingpage",
