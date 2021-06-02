@@ -339,24 +339,36 @@
                 
                 
                 <h1 id="wagtail-xliff-translation">Wagtail XLIFF Translation</h1>
-<p><em>Wagtail XLIFF Translation</em> is a Wagtail library for converting a Wagtail website to XLIFF (XML Localization Interchange File Format) and back. 
-It allows translators to work with -XLIFF based- translation software. </p>
+<p><em>Wagtail XLIFF Translation</em> is a Wagtail library for converting a Wagtail website to XLIFF (XML Localization Interchange File Format) and back.
+It allows translators to work with -XLIFF based- translation software.</p>
 <h2 id="what-does-it-do">What does it do?</h2>
-<p>Wagtail XLIFF Translation provides a download view in the Wagtail admin to export site contents to XLIFF file. 
+<p>Wagtail XLIFF Translation provides a download view in the Wagtail admin to export site contents to XLIFF file.
 Once the file is translated, it can be uploaded to create a translated site tree.</p>
 <p>Exporting and importing a sub-tree, or a single page is supported.</p>
 <h2 id="known-limitations">Known limitations</h2>
 <ul>
 <li>Related objects (such as images, documents, and snippets) are not translated or duplicated.</li>
 <li>Pages will be in draft mode. Pages need to be reviewed and published.</li>
-<li>...</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p>To install:</p>
 <div class="highlight"><pre><span></span><code>pip install wagtail-xliff-translation
 </code></pre></div>
+<p>In settings.py:</p>
+<ul>
+<li>Add <code>'wagtail-xliff-translation'</code> to <code>INSTALLED_APPS</code>.</li>
+<li>Add <code>'SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}'</code> setting.</li>
+</ul>
+<p>Like so:</p>
+<div class="highlight"><pre><span></span><code><span class="x"># settings.py</span>
 
-<p>Add <code>'wagtail-xliff-translation'</code> to your project's <code>INSTALLED_APPS</code>.</p>
+<span class="x">INSTALLED_APPS = [</span>
+<span class="x">    &#39;wagtail-xliff-translation&#39;,</span>
+<span class="x">    ...</span>
+<span class="x">]</span>
+
+<span class="x">SERIALIZATION_MODULES = {&quot;xliff&quot;: &quot;wagtail_xliff_translation.serializers&quot;}</span>
+</code></pre></div>
                 
               
               

@@ -247,8 +247,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#deploy-docs" class="md-nav__link">
-    Deploy docs
+  <a href="#documentation" class="md-nav__link">
+    Documentation
   </a>
   
 </li>
@@ -287,8 +287,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#deploy-docs" class="md-nav__link">
-    Deploy docs
+  <a href="#documentation" class="md-nav__link">
+    Documentation
   </a>
   
 </li>
@@ -315,17 +315,23 @@
 <div class="highlight"><pre><span></span><code>git clone git@github.com:fourdigits/wagtail-xliff-translation.git
 <span class="nb">cd</span> wagtail-xliff-translation
 </code></pre></div>
-
 <p>With your preferred virtualenv activated, install the package in development mode with the included testing and documentation dependencies:</p>
-<div class="highlight"><pre><span></span><code>python -m pip install -e <span class="s1">&#39;.[testing,docs]&#39;</span> -U
+<div class="highlight"><pre><span></span><code>python -m pip install -e <span class="s1">&#39;.[test,docs]&#39;</span> -U
 </code></pre></div>
-
-<h2 id="deploy-docs">Deploy docs</h2>
-<p>Deploy docs to Github pages:</p>
+<p>Run tests:</p>
+<div class="highlight"><pre><span></span><code>pytest
+</code></pre></div>
+<p>The test app can be managed (runserver, makemigrations, etc):</p>
+<div class="highlight"><pre><span></span><code>python manage.py makemigrations test_app
+</code></pre></div>
+<h2 id="documentation">Documentation</h2>
+<p>Run the documentation locally:</p>
+<div class="highlight"><pre><span></span><code>mkdocs serve
+</code></pre></div>
+<p>Deploy the documentation to Github pages:</p>
 <div class="highlight"><pre><span></span><code>mkdocs gh-deploy
 </code></pre></div>
-
-<p>Check https://fourdigits.github.io/wagtail-xliff-translation/</p>
+<p>See <a href="https://fourdigits.github.io/wagtail-xliff-translation/">https://fourdigits.github.io/wagtail-xliff-translation/</a></p>
                 
               
               
