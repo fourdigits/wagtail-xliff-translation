@@ -147,7 +147,7 @@ WAGTAIL_APPEND_SLASH = True
 WAGTAIL_SITE_NAME = "Test site"
 
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
-    ('en', "English"),
+    (LANGUAGE_CODE, "English"),
     ('fr', "French"),
     ('es', "Spanish"),
 ]
