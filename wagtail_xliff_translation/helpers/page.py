@@ -40,8 +40,8 @@ class PageHelper:
         return all(isinstance(obj, Page) for obj in queryset)
 
     @staticmethod
-    def all_same_src_language(queryset):
-        return all(obj.locale == queryset[0].locale for obj in queryset)
+    def all_same_src_language(values):
+        return values.count(values[0]) == len(values)
 
     def is_translation_child(self, queryset):
         return self.page.get_parent().specific in queryset
