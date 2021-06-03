@@ -72,16 +72,11 @@ def test_download_view_serialization_error(
     assert resp.status_code == 200
 
 
-@pytest.mark.skip(reason="Needs a fix")
 def test_upload_view_post_deserialization_error(admin_client, page_factory, mocker):
     page = page_factory()
     test_error = "test_error"
-    upload_file = open(
-        os.path.join(
-            settings.BASE_DIR, "xliff/tests/data/xliff_translated/zgpage.xliff"
-        ),
-        "rb",
-    )
+    filename = os.path.join(settings.BASE_DIR, "test_app/data/xliff/zgpage.xliff")
+    upload_file = open(os.path.join(filename), "rb")
     mocker.patch.object(
         XliffWagtailDeserializer, "all", side_effect=DeserializationError(test_error)
     )
