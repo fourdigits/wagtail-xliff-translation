@@ -78,7 +78,7 @@ def english_richtext_german_base(english_richtext, locale_factory):
 def english_streamfield_german_base(english_streamfield, locale_factory):
     site, english_page = english_streamfield
     german_language = locale_factory(code="de")
-    english_page.get_parent().copy_for_translation(german_language)
+    english_page.copy_for_translation(german_language)
     return site, english_page, german_language
 
 
