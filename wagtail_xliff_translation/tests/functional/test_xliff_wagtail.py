@@ -7,8 +7,9 @@ from django.core.serializers.base import DeserializationError
 from ..utils import get_condensed_sample_data, get_object_ids
 
 pytestmark = pytest.mark.django_db
-pytestmark = pytest.mark.skip
 
+
+@pytest.mark.skip("To be fixed")
 def test_basic_deserialization(english_german_base, page_factory):
     site, english_page, german_language = english_german_base
     object_ids = get_object_ids([english_page])
@@ -60,6 +61,7 @@ def test_richtext_deserialization(english_richtext_german_base):
     )
 
 
+@pytest.mark.skip("To be fixed")
 def test_streamfield_deserialization(english_streamfield_german_base):
     site, english_page, german_language = english_streamfield_german_base
     object_ids = get_object_ids([english_page])

@@ -14,14 +14,14 @@ from wagtail_xliff_translation.serializers.xliff_wagtail import XliffWagtailDese
 
 pytestmark = pytest.mark.django_db
 
-@pytest.mark.skip(reason="Needs a fix")
+
 def test_download_view_post_invalid(admin_client, page_factory):
     page = page_factory()
     resp = admin_client.post(reverse("xliff:download", kwargs={"page_id": page.pk}))
     form = resp.context["form"]
     assert form.errors["language"][0] == "This field is required."
 
-@pytest.mark.skip(reason="Needs a fix")
+
 def test_download_view_with_descendants(admin_client, page_factory):
     page = page_factory()
     page_factory(parent=page)
@@ -29,11 +29,10 @@ def test_download_view_with_descendants(admin_client, page_factory):
     assert "include_subtree" in resp.context["form"].fields
 
 
-@pytest.mark.skip(reason="Needs a fix")
 def test_download_view_with_included_subtree(
-    admin_client, page_factory, language_factory
+    admin_client, page_factory, locale_factory
 ):
-    german = language_factory(code="de")
+    german = locale_factory(language_code="de")
     page = page_factory()
     page_factory(parent=page)
     resp = admin_client.post(
@@ -43,7 +42,6 @@ def test_download_view_with_included_subtree(
     assert resp.status_code == 200
 
 
-@pytest.mark.skip(reason="Needs a fix")
 def test_download_view_without_admin_rights(client, page_factory):
     page = page_factory()
     user = get_user_model().objects.create_user(
@@ -53,15 +51,15 @@ def test_download_view_without_admin_rights(client, page_factory):
     editor_group.user_set.add(user)
     client.force_login(user)
     resp = client.get(reverse("xliff:download", kwargs={"page_id": page.pk}))
-    assert resp.status_code == 403
+    assert resp.status_code == 302
+    assert resp.url == "/admin/"
 
 
-@pytest.mark.skip(reason="Needs a fix")
 def test_download_view_serialization_error(
-    admin_client, page_factory, language_factory, mocker
+    admin_client, page_factory, locale_factory, mocker
 ):
     page = page_factory()
-    german = language_factory(code="de")
+    german = locale_factory(language_code="de")
     test_error = "test error"
     mocker.patch.object(
         WagtailXliffSerializer, "serialize", side_effect=SerializationError(test_error)
@@ -101,7 +99,6 @@ def test_upload_view_post_deserialization_error(admin_client, page_factory, mock
     assert resp.status_code == 200
 
 
-@pytest.mark.skip(reason="Needs a fix")
 def test_upload_view_post_invalid(admin_client, page_factory):
     page = page_factory()
     resp = admin_client.post(
