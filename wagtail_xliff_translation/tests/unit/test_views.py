@@ -43,13 +43,6 @@ def test_download_view_with_included_subtree(
     assert resp.status_code == 200
 
 
-def test_download_view_with_root_page(admin_client, site):
-    resp = admin_client.post(
-        reverse("xliff:download", kwargs={"page_id": site.root_page.pk}), follow=True
-    )
-    # wagtail raises a 404 on the page where we couldn't perform the action on
-    assert resp.status_code == 404
-
 @pytest.mark.skip(reason="Needs a fix")
 def test_download_view_without_admin_rights(client, page_factory):
     page = page_factory()
