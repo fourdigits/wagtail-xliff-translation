@@ -23,10 +23,10 @@ def test_richtext_serialization(english_richtext_german_base):
     assert sample_data_equals(serialized_page, "xliff/richtextpage.xliff")
 
 
-def test_streamfield_serialization(english_streamfield_german_base):
-    site, page, german_language = english_streamfield_german_base
-    print("DIT IS DE TARGET LANG: ", german_language.language_code)
+def test_streamfield_serialization(english_streamfield, locale_factory):
+    site, english_page = english_streamfield
+    german_language = locale_factory(code="de")
     serialized_page = serializers.serialize(
-        "xliff", [page], target_language=german_language.language_code
+        "xliff", [english_page], target_language=german_language.language_code
     )
     assert sample_data_equals(serialized_page, "xliff/streamfieldpage.xliff")
