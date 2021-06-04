@@ -41,7 +41,7 @@ class PageHelper:
 
     @staticmethod
     def all_same_src_language(queryset):
-        return all(obj.locale == queryset[0].locale for obj in queryset)
+        return all(obj.locale_id == queryset[0].locale_id for obj in queryset)
 
     def is_translation_child(self, queryset):
         return self.page.get_parent().specific in queryset

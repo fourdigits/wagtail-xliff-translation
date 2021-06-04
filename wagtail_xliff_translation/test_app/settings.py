@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "wagtail.contrib.search_promotions",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+    "wagtail.contrib.simple_translation",
     "wagtail.embeds",
     "wagtail.users",
     "wagtail.snippets",
@@ -146,9 +147,11 @@ WAGTAIL_APPEND_SLASH = True
 WAGTAIL_SITE_NAME = "Test site"
 
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
-    ('en', "English"),
+    (LANGUAGE_CODE, "English"),
     ('fr', "French"),
     ('es', "Spanish"),
 ]
 
 SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

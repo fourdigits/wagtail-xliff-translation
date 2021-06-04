@@ -8,7 +8,7 @@ from wagtail_xliff_translation.helpers.page import PageHelper
 
 
 def get_sample_data(file):
-    path = os.path.join(settings.BASE_DIR, "xliff/tests/data/", file)
+    path = os.path.join(settings.BASE_DIR, "test_app/data/", file)
     with open(path, "r") as file_data:
         return file_data.read()
 

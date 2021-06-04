@@ -1,18 +1,20 @@
+import json
+import os
+
 import pytest
 import wagtail_factories
+from django.conf import settings
 from pytest_factoryboy import register
 from test_app.factories import (
-    LanguageFactory,
-    PageFactory,
-    PageWithRichTextFactory,
-    PageWithStreamFieldFactory,
+    LocaleFactory,
 )
+from test_app.models import PageWithRichText, PageWithStreamField
+from wagtail.core.models import Site, Page
+from wagtail.core.rich_text import RichText
 
 from wagtail_xliff_translation.parsers.html_xliff import HtmlXliffParser
 
-register(PageFactory)
-register(PageWithRichTextFactory)
-register(LanguageFactory)
+register(LocaleFactory)
 register(wagtail_factories.SiteFactory)
 
 
@@ -22,77 +24,92 @@ def html_parser():
 
 
 @pytest.fixture
-def language_factory():
-    return LanguageFactory
+def home_en():
+    """Default root page is created by Wagtail migrations.
+    It has the default locale (English)"""
+    page = Site.objects.first().root_page
+    assert page.locale.language_code == "en-us"
+    return page
 
 
 @pytest.fixture
-def page_with_streamfield_factory():
-    return PageWithStreamFieldFactory
+def page(home_en):
+    page = Page(title="english_page", slug="english_page")
+    home_en.add_child(instance=page)
+    return page
 
 
 @pytest.fixture
-def english_base(page_factory, site):
-    parent = page_factory(parent=site.root_page)
-    english_page = page_factory(
-        parent=parent, title="english_page", slug="english_page"
+def page_with_rich_text(home_en):
+    page = PageWithRichText(
+        title="english_richtext",
+        test_textfield="a longer sentence with a lot of content",
+        test_richtextfield=RichText(
+            """
+            <h1>hoeba</h1>
+            <img href='/link-to-kek/' />
+            <a href='http://google.nl'>kek</a>
+            <bold>fancy bold stuff</bold>
+            """
+        )
     )
-    return site, english_page
+    home_en.add_child(instance=page)
+    return page
 
 
 @pytest.fixture
-def english_richtext(site, page_with_rich_text_factory):
-    parent = page_with_rich_text_factory(parent=site.root_page)
-    english_richtext = page_with_rich_text_factory(
-        parent=parent, title="english_richtext", slug="english_richtext"
+def page_with_streamfield(home_en):
+    # Use a .json as seed data is deemed as the most stable solution for catching every streamfield edge case.
+    data_path = os.path.join(
+        settings.BASE_DIR, "test_app/factories/streamfield_data.json"
     )
-    return site, english_richtext
+    with open(data_path) as json_file:
+        loaded = json.load(json_file)
+        data = json.dumps(loaded)
+
+    page = PageWithStreamField(
+        title="english_streamfield",
+        test_streamfield=data
+    )
+    home_en.add_child(instance=page)
+    return page
 
 
 @pytest.fixture
-def english_streamfield(site, page_with_streamfield_factory):
-    parent = page_with_streamfield_factory(parent=site.root_page)
-    english_streamfield = page_with_streamfield_factory(
-        parent=parent, title="english_richtext", slug="english_richtext"
-    )
-    return site, english_streamfield
+def english_richtext(page_with_rich_text):
+    return page_with_rich_text
 
 
 @pytest.fixture
-def english_german_base(english_base, language_factory):
-    site, english_page = english_base
-    german_language = language_factory(code="de", is_default=False)
-    english_page.get_parent().create_translation(
-        german_language, copy_fields=True, parent=site.root_page
-    )
-    return site, english_page, german_language
+def english_streamfield(page_with_streamfield):
+    return page_with_streamfield
 
 
 @pytest.fixture
-def english_richtext_german_base(english_richtext, language_factory):
-    site, english_page = english_richtext
-    german_language = language_factory(code="de", is_default=False)
-    english_page.get_parent().create_translation(
-        german_language, copy_fields=True, parent=site.root_page
-    )
-    return site, english_page, german_language
+def english_base(page):
+    return page, page.locale
 
 
 @pytest.fixture
-def english_streamfield_german_base(english_streamfield, language_factory):
-    site, english_page = english_streamfield
-    german_language = language_factory(code="de", is_default=False)
-    english_page.get_parent().create_translation(
-        german_language, copy_fields=True, parent=site.root_page
-    )
-    return site, english_page, german_language
+def english_german_base(page, locale_factory):
+    german_language = locale_factory(language_code="de")
+    return page, german_language
 
 
 @pytest.fixture
-def english_german_translated(english_german_base):
-    site, english_page, german_language = english_german_base
-    german_page = english_page.copy(
-        to=site.root_page,
-        update_attrs={"language": german_language, "slug": english_page.slug + "-de"},
-    )
-    return site, english_page, german_page
+def english_richtext_german_base(english_richtext, locale_factory):
+    german_language = locale_factory(language_code="de")
+    return english_richtext, german_language
+
+
+@pytest.fixture
+def english_streamfield_german_base(english_streamfield, locale_factory):
+    german_language = locale_factory(language_code="de")
+    return english_streamfield, german_language
+
+
+@pytest.fixture
+def english_german_translated(page, locale_factory):
+    german_language = locale_factory(language_code="de")
+    german_page = page.copy_for_translation(german_language, copy_parents=True)
+    return page, german_page
