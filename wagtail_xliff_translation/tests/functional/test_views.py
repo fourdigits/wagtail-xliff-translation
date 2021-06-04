@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
-from wagtail.core.models import Site
+
 from wagtail_xliff_translation.forms import DownloadForm, ImportForm
 from wagtail_xliff_translation.helpers.page import PageHelper
 
@@ -27,14 +27,10 @@ def test_upload_view_get(admin_client, page):
     assert isinstance(resp.context["form"], ImportForm)
 
 
-def test_upload_view_post(
-    admin_client, home_en, locale_factory
-):
+def test_upload_view_post(admin_client, home_en, locale_factory):
     locale_factory(language_code="de")
     upload_file = open(
-        os.path.join(
-            settings.BASE_DIR, "test_app/data/xliff_translated/zgpage.xliff"
-        ),
+        os.path.join(settings.BASE_DIR, "test_app/data/xliff_translated/zgpage.xliff"),
         "rb",
     )
     # set page pk

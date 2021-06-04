@@ -3,13 +3,13 @@ import os
 
 import pytest
 import wagtail_factories
-from django.conf import settings
 from pytest_factoryboy import register
-from test_app.factories import (
-    LocaleFactory,
-)
+from test_app.factories import LocaleFactory
 from test_app.models import PageWithRichText, PageWithStreamField
-from wagtail.core.models import Site, Page
+
+from django.conf import settings
+
+from wagtail.core.models import Page, Site
 from wagtail.core.rich_text import RichText
 
 from wagtail_xliff_translation.parsers.html_xliff import HtmlXliffParser
@@ -51,7 +51,7 @@ def page_with_rich_text(home_en):
             <a href='http://google.nl'>kek</a>
             <bold>fancy bold stuff</bold>
             """
-        )
+        ),
     )
     home_en.add_child(instance=page)
     return page
@@ -67,10 +67,7 @@ def page_with_streamfield(home_en):
         loaded = json.load(json_file)
         data = json.dumps(loaded)
 
-    page = PageWithStreamField(
-        title="english_streamfield",
-        test_streamfield=data
-    )
+    page = PageWithStreamField(title="english_streamfield", test_streamfield=data)
     home_en.add_child(instance=page)
     return page
 

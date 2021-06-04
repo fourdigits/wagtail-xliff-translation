@@ -5,11 +5,13 @@ def test_flat_html(html_parser):
     assert html_parser.content_list == ["hello world", "hoebakek", "item_1", "item_2"]
     assert (
         html_parser.html
-        == "<a href='https://google.nl'>{placeholder_0}</a>{placeholder_1}<ol><li>{placeholder_2}</li><li>{placeholder_3}</li></ol>"
+        == "<a href='https://google.nl'>{placeholder_0}</a>{placeholder_1}"
+        "<ol><li>{placeholder_2}</li><li>{placeholder_3}</li></ol>"
     )
     assert (
         html_parser.encode_html()
-        == "PGEgaHJlZj0naHR0cHM6Ly9nb29nbGUubmwnPntwbGFjZWhvbGRlcl8wfTwvYT57cGxhY2Vob2xkZXJfMX08b2w+PGxpPntwbGFjZWhvbGRlcl8yfTwvbGk+PGxpPntwbGFjZWhvbGRlcl8zfTwvbGk+PC9vbD4="
+        == "PGEgaHJlZj0naHR0cHM6Ly9nb29nbGUubmwnPntwbGFjZWhvbGRlcl8wfTwvYT57cGxhY2Vob2xkZXJfMX08b2w+"
+        "PGxpPntwbGFjZWhvbGRlcl8yfTwvbGk+PGxpPntwbGFjZWhvbGRlcl8zfTwvbGk+PC9vbD4="
     )
 
     html_parser.reset()

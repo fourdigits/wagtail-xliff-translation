@@ -13,6 +13,7 @@ from django.views.generic.detail import SingleObjectMixin
 from wagtail.core.models import Page
 
 from wagtail_xliff_translation.forms import DownloadForm, ImportForm
+
 from .helpers import PageHelper
 
 
@@ -76,7 +77,11 @@ class DownloadView(BaseView):
                 return self.render_to_response(context)
 
             timestamp = timezone.now().strftime("%Y%m%d-%H%M")
-            filename = f"{self.object.locale.language_code.upper()}2{locale.language_code.upper()}-{str(self.object.id)}-{timestamp}.xliff"
+            filename = (
+                f"{self.object.locale.language_code.upper()}"
+                f"2{locale.language_code.upper()}"
+                f"-{str(self.object.id)}-{timestamp}.xliff"
+            )
             response = HttpResponse(data, content_type="application/x-xliff+xml")
             response["Content-Disposition"] = f'attachment; filename="{filename}"'
             messages.success(request, self.get_success_message())
@@ -138,9 +143,9 @@ class UploadView(BaseView):
                         for x in self.object.get_descendants()
                         if self.object.get_descendants()
                     ]
-                    # Result being empty here means none of the one or more id's obtained from the XLIFF file tag(s) have been matched
-                    # with the target page or the pages in the subtree so no results are returned. This is most likely due to the fact
-                    # the user tries to upload an XLIFF file at the wrong page
+                    # Result being empty here means none of the one or more id's obtained from the XLIFF file tag(s)
+                    # have been matched with the target page or the pages in the subtree so no results are returned.
+                    # This is most likely due to the fact the user tries to upload an XLIFF file at the wrong page.
                     raise DeserializationError(
                         _(
                             "None of the file objects in the XLIFF file could be matched against "

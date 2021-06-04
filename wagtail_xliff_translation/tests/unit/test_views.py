@@ -8,6 +8,7 @@ from django.contrib.auth.models import Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.base import DeserializationError, SerializationError
 from django.urls import reverse
+
 from wagtail.core.models import Page
 
 from wagtail_xliff_translation.serializers.wagtail_xliff import WagtailXliffSerializer
@@ -28,9 +29,7 @@ def test_download_view_with_descendants(admin_client, page):
     assert "include_subtree" in resp.context["form"].fields
 
 
-def test_download_view_with_included_subtree(
-    admin_client, page, locale_factory
-):
+def test_download_view_with_included_subtree(admin_client, page, locale_factory):
     german = locale_factory(language_code="de")
     page.add_child(instance=Page(title="Sub"))
     resp = admin_client.post(
@@ -52,9 +51,7 @@ def test_download_view_without_admin_rights(client, page):
     assert resp.url == "/admin/"
 
 
-def test_download_view_serialization_error(
-    admin_client, page, locale_factory, mocker
-):
+def test_download_view_serialization_error(admin_client, page, locale_factory, mocker):
     german = locale_factory(language_code="de")
     test_error = "test error"
     mocker.patch.object(

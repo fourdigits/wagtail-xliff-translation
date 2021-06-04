@@ -5,6 +5,7 @@ from django.utils.text import slugify
 
 from wagtail_xliff_translation.parsers.xliff_wagtail import XliffWagtailParser
 
+
 class TranslationHelper:
     def __init__(self, page):
         self.page = page
@@ -27,7 +28,9 @@ class TranslationHelper:
         except ValidationError as error:
             error_fields = list([key for key in error.message_dict.keys()])
             raise ValidationError(
-                f"Cannot properly import XLIFF. There is a validation error for the translated page {translated_page.title}. Error(s) on field(s): {error_fields}. Full error message: {error}"
+                f"Cannot properly import XLIFF. "
+                f"There is a validation error for the translated page {translated_page.title}. "
+                f"Error(s) on field(s): {error_fields}. Full error message: {error}"
             )
         return translated_page
 

@@ -1,6 +1,6 @@
-from django.utils.translation import get_language
-
 import factory
+
+from django.utils.translation import get_language
 
 from wagtail.core.models import Locale
 

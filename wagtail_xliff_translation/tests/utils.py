@@ -3,6 +3,7 @@ import re
 from xml.dom.minidom import parseString
 
 from django.conf import settings
+
 from wagtail_xliff_translation.constants import FileAttributes, XliffElements
 from wagtail_xliff_translation.helpers.page import PageHelper
 
@@ -35,7 +36,7 @@ def get_condensed_sample_data(file, pages):
 
 
 def i_compare_string(string_one, string_two):
-    """ compare strings ignoring whitespaces/ new lines and tabs
+    """compare strings ignoring whitespaces/ new lines and tabs
     this allows us to keep the sample data in readable format and keeping the exported data condensed
     """
     return re.sub(r"\s+", "", string_one) == re.sub(r"\s+", "", string_two)

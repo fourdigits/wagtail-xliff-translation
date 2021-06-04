@@ -29,7 +29,9 @@ class WagtailXliffSerializer(base.Serializer):
         self.group_id = 0
         self.unit_id = 0
 
-    def serialize(self, queryset, *, stream=None, fields=None, **options):
+    def serialize(
+        self, queryset, *, stream=None, fields=None, **options
+    ):  # pragma: no mccabe
         self.options = options
         self.stream = stream if stream is not None else self.stream_class()
         self.selected_fields = fields

@@ -6,7 +6,6 @@ from wagtail.core.fields import RichTextField
 
 from ..constants import (
     ContentType,
-    DataAttributes,
     GroupAttributes,
     PcAttributes,
     PhAttributes,
@@ -79,10 +78,10 @@ class XliffWagtailParser:
 
     def process_rich_text(self, file):
         """
-            In this method, the richtext part of an xliff file is converted back to flat 
-            html. The b64 encoded string is used to generate flat HTML containing placeholders.
-            After that, we generate two lists containing the old data and the translated data
-            and fill the html with said data.
+        In this method, the richtext part of an xliff file is converted back to flat
+        html. The b64 encoded string is used to generate flat HTML containing placeholders.
+        After that, we generate two lists containing the old data and the translated data
+        and fill the html with said data.
         """
         header_file = file.getElementsByTagName("internal_file")[0]
         html_str = b64decode(header_file.firstChild.data.encode("ascii")).decode(
@@ -158,7 +157,7 @@ class XliffWagtailParser:
 
     def handle_regular_block(self, block_node):
         block_name = block_node.getAttribute(UnitAttributes.NAME)
-        #TODO needs to be changed since original data is no longer used
+        # TODO needs to be changed since original data is no longer used
         if block_node.getElementsByTagName(XliffElements.ORIGINAL_DATA):
             translations = self.process_rich_text(block_node)
             value = translations.get("target")
@@ -185,7 +184,7 @@ class XliffWagtailParser:
             except AttributeError:
                 continue
             if field.nodeName == XliffElements.UNIT:
-                #TODO needs to be changed since original data is no longer used
+                # TODO needs to be changed since original data is no longer used
                 if block.getElementsByTagName(XliffElements.ORIGINAL_DATA):
                     translations = self.process_rich_text(field)
                     target = translations.get("target")
