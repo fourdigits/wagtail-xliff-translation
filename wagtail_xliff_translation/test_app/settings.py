@@ -153,3 +153,5 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
 ]
 
 SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

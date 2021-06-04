@@ -8,6 +8,7 @@ from django.contrib.auth.models import Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.base import DeserializationError, SerializationError
 from django.urls import reverse
+from wagtail.core.models import Page
 
 from wagtail_xliff_translation.serializers.wagtail_xliff import WagtailXliffSerializer
 from wagtail_xliff_translation.serializers.xliff_wagtail import XliffWagtailDeserializer
@@ -15,26 +16,23 @@ from wagtail_xliff_translation.serializers.xliff_wagtail import XliffWagtailDese
 pytestmark = pytest.mark.django_db
 
 
-def test_download_view_post_invalid(admin_client, page_factory):
-    page = page_factory()
+def test_download_view_post_invalid(admin_client, page):
     resp = admin_client.post(reverse("xliff:download", kwargs={"page_id": page.pk}))
     form = resp.context["form"]
     assert form.errors["language"][0] == "This field is required."
 
 
-def test_download_view_with_descendants(admin_client, page_factory):
-    page = page_factory()
-    page_factory(parent=page)
+def test_download_view_with_descendants(admin_client, page):
+    page.add_child(instance=Page(title="descendant"))
     resp = admin_client.get(reverse("xliff:download", kwargs={"page_id": page.pk}))
     assert "include_subtree" in resp.context["form"].fields
 
 
 def test_download_view_with_included_subtree(
-    admin_client, page_factory, locale_factory
+    admin_client, page, locale_factory
 ):
     german = locale_factory(language_code="de")
-    page = page_factory()
-    page_factory(parent=page)
+    page.add_child(instance=Page(title="Sub"))
     resp = admin_client.post(
         reverse("xliff:download", kwargs={"page_id": page.pk}),
         {"language": german.pk, "include_subtree": True},
@@ -42,8 +40,7 @@ def test_download_view_with_included_subtree(
     assert resp.status_code == 200
 
 
-def test_download_view_without_admin_rights(client, page_factory):
-    page = page_factory()
+def test_download_view_without_admin_rights(client, page):
     user = get_user_model().objects.create_user(
         username="username", password="password"
     )
@@ -56,9 +53,8 @@ def test_download_view_without_admin_rights(client, page_factory):
 
 
 def test_download_view_serialization_error(
-    admin_client, page_factory, locale_factory, mocker
+    admin_client, page, locale_factory, mocker
 ):
-    page = page_factory()
     german = locale_factory(language_code="de")
     test_error = "test error"
     mocker.patch.object(
@@ -72,8 +68,7 @@ def test_download_view_serialization_error(
     assert resp.status_code == 200
 
 
-def test_upload_view_post_deserialization_error(admin_client, page_factory, mocker):
-    page = page_factory()
+def test_upload_view_post_deserialization_error(admin_client, page, mocker):
     test_error = "test_error"
     filename = os.path.join(settings.BASE_DIR, "test_app/data/xliff/zgpage.xliff")
     upload_file = open(os.path.join(filename), "rb")
@@ -94,8 +89,7 @@ def test_upload_view_post_deserialization_error(admin_client, page_factory, mock
     assert resp.status_code == 200
 
 
-def test_upload_view_post_invalid(admin_client, page_factory):
-    page = page_factory()
+def test_upload_view_post_invalid(admin_client, page):
     resp = admin_client.post(
         reverse("xliff:upload", kwargs={"page_id": page.pk}),
         {

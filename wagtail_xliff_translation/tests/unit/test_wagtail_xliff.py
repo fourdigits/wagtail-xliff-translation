@@ -14,7 +14,7 @@ def test_all_translatable_page(locale_factory):
 
 
 def test_all_same_src_language(english_german_translated):
-    site, english_page, german_page = english_german_translated
+    english_page, german_page = english_german_translated
     with pytest.raises(SerializationError) as err:
         serializers.serialize(
             "xliff",
@@ -24,8 +24,7 @@ def test_all_same_src_language(english_german_translated):
     assert str(err.value) == "all instances must have the same source language"
 
 
-def test_invalid_target_language(english_base):
-    site, english_page = english_base
+def test_invalid_target_language(page):
     with pytest.raises(SerializationError) as err:
-        serializers.serialize("xliff", [english_page], target_language="zz")
+        serializers.serialize("xliff", [page], target_language="zz")
     assert str(err.value) == "invalid target language"

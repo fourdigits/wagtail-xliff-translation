@@ -17,14 +17,14 @@ from ..utils import get_object_ids
 @pytest.mark.django_db
 @pytest.mark.skip(reason="Needs a fix")
 def test_stream_data(
-    page_factory,
+    home_en,
     site,
     zg_marketing_page_factory,
     zg_products_page_factory,
     inspiration_detail_page_factory,
     language_factory,
 ):
-    homepage = page_factory(parent=site.root_page)
+    homepage = home_en
     products = zg_products_page_factory(parent=site.root_page)
     marketing_page = zg_marketing_page_factory(
         parent=products,
@@ -54,12 +54,12 @@ def test_stream_data(
     ]
     marketing_page.body = json.dumps(json_data)
     marketing_page.save()
-    german_language = language_factory(code="de", is_default=False)
+    german_language = language_factory(language_code="de", is_default=False)
     homepage.create_translation(
         german_language, copy_fields=True, parent=homepage.get_parent()
     )
     serialized_page = serializers.serialize(
-        "xliff", [marketing_page], target_language=german_language.code
+        "xliff", [marketing_page], target_language=german_language.language_code
     )
     soup = bs(serialized_page, "lxml-xml")
     body_xml_str = f"""

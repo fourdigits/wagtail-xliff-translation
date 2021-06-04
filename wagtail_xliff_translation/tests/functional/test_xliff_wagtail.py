@@ -10,8 +10,8 @@ pytestmark = pytest.mark.django_db
 
 
 @pytest.mark.skip("To be fixed")
-def test_basic_deserialization(english_german_base, page_factory):
-    site, english_page, german_language = english_german_base
+def test_basic_deserialization(english_german_base, page):
+    english_page, german_language = english_german_base
     object_ids = get_object_ids([english_page])
     xliff = get_condensed_sample_data("xliff_translated/zgpage.xliff", object_ids)
     translated_pages = serializers.deserialize(
@@ -21,7 +21,7 @@ def test_basic_deserialization(english_german_base, page_factory):
     assert german_page.draft
     assert german_page.title == german_page.slug == "german_page"
 
-    new_parent_page = page_factory()
+    new_parent_page = page
     with pytest.raises(DeserializationError):
         serializers.deserialize(
             "xliff",
@@ -44,7 +44,8 @@ def test_basic_deserialization(english_german_base, page_factory):
 
 
 def test_richtext_deserialization(english_richtext_german_base):
-    site, english_page, german_language = english_richtext_german_base
+    english_page, german_language = english_richtext_german_base
+    english_page.get_parent().copy_for_translation(german_language)
     object_ids = get_object_ids([english_page])
     xliff = get_condensed_sample_data("xliff_translated/richtextpage.xliff", object_ids)
     translated_pages = serializers.deserialize(
@@ -63,7 +64,7 @@ def test_richtext_deserialization(english_richtext_german_base):
 
 @pytest.mark.skip("To be fixed")
 def test_streamfield_deserialization(english_streamfield_german_base):
-    site, english_page, german_language = english_streamfield_german_base
+    english_page, german_language = english_streamfield_german_base
     object_ids = get_object_ids([english_page])
     xliff = get_condensed_sample_data(
         "xliff_translated/streamfieldpage.xliff", object_ids

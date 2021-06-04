@@ -8,7 +8,7 @@ pytestmark = pytest.mark.django_db
 
 
 def test_basic_serialization(english_german_base):
-    site, page, german_language = english_german_base
+    page, german_language = english_german_base
     serialized_page = serializers.serialize(
         "xliff", [page], target_language=german_language.language_code
     )
@@ -16,7 +16,7 @@ def test_basic_serialization(english_german_base):
 
 
 def test_richtext_serialization(english_richtext_german_base):
-    site, page, german_language = english_richtext_german_base
+    page, german_language = english_richtext_german_base
     serialized_page = serializers.serialize(
         "xliff", [page], target_language=german_language.language_code
     )
@@ -24,8 +24,8 @@ def test_richtext_serialization(english_richtext_german_base):
 
 
 def test_streamfield_serialization(english_streamfield, locale_factory):
-    site, english_page = english_streamfield
-    german_language = locale_factory(code="de")
+    english_page = english_streamfield
+    german_language = locale_factory(language_code="de")
     serialized_page = serializers.serialize(
         "xliff", [english_page], target_language=german_language.language_code
     )

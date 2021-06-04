@@ -11,13 +11,13 @@
         </mda:metadata>
         <unit canResegment="no" id="title" name="title" slr:sizeRestriction="255" translate="yes" type="local:CharField">
             <segment>
-                <source>english_richtext</source>
+                <source>english_streamfield</source>
                 <target/>
             </segment>
         </unit>
         <unit canResegment="no" id="slug" name="slug" slr:sizeRestriction="255" translate="yes" type="local:SlugField">
             <segment>
-                <source>english_richtext</source>
+                <source>english_streamfield</source>
                 <target/>
             </segment>
         </unit>
