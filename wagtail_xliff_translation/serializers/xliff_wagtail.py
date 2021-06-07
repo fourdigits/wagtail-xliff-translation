@@ -3,11 +3,9 @@ from xml.dom import pulldom
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.serializers import base
 from django.db import transaction
-from django.urls import reverse
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-from wagtail.core.models import Locale, Page, Site
+from wagtail.core.models import Locale
 
 from ..constants import (
     FileAttributes,
@@ -95,5 +93,7 @@ class XliffWagtailDeserializer(base.Deserializer):
     def handle_object(self, file_node, is_translation_child):
         src_page, locale = self.validate_object(file_node)
         translation_helper = TranslationHelper(src_page)
-        translation_target_page = src_page.copy_for_translation(locale, copy_parents=False, alias=False, exclude_fields=None)
+        translation_target_page = src_page.copy_for_translation(
+            locale, copy_parents=False, alias=False, exclude_fields=None
+        )
         return translation_helper.translate_page(file_node, translation_target_page)

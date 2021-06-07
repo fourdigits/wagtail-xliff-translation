@@ -1,4 +1,3 @@
-from wagtail_xliff_translation.parsers.xliff_wagtail import XliffWagtailParser
 import pytest
 
 from django.core import serializers
@@ -29,8 +28,7 @@ def test_basic_deserialization(english_german_base, page):
             object_ids=object_ids,
             create_pages=True,
             parent_page=new_parent_page,
-        ).all(),
-        "Manually setting a parent page only works if the page has no translations yet",
+        ).all()
 
     german_page.delete()
     translated_pages = serializers.deserialize(
@@ -58,7 +56,8 @@ def test_richtext_deserialization(english_richtext_german_base):
     )
     assert (
         german_page.test_richtextfield
-        == '<h1>hoeba_german</h1><img href="/link-to-kek/" /><img/><a href="/link-to-kek/">kek_german</a><bold>Lust auf kühnes Zeug</bold>'
+        == '<h1>hoeba_german</h1><img href="/link-to-kek/" /><img/>'
+        '<a href="/link-to-kek/">kek_german</a><bold>Lust auf kühnes Zeug</bold>'
     )
 
 

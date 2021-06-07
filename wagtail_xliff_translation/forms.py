@@ -4,8 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext as _n
 
 from wagtail.admin.widgets import AdminPageChooser
-
-from wagtail.core.models import Page, Locale
+from wagtail.core.models import Locale, Page
 
 
 class DownloadForm(forms.Form):
@@ -78,9 +77,7 @@ class ImportForm(forms.Form):
         self.fields["parent_page"] = forms.ModelChoiceField(
             queryset=Page.objects.exclude(locale=page.locale),
             required=False,
-            widget=AdminPageChooser(  # noqa
-                show_edit_link=False, target_models=[Page]
-            ),
+            widget=AdminPageChooser(show_edit_link=False, target_models=[Page]),  # noqa
             help_text=mark_safe(
                 _(
                     "When a page is selected here, the pages generated based on the XLIFF "

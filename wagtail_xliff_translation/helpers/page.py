@@ -82,8 +82,8 @@ class PageHelper:
                     "owner",
                 ]
             )
-            # ignore zgpage specific fields 
-            #TODO remove if possible
+            # ignore zgpage specific fields
+            # TODO remove if possible
             and not (
                 field.name
                 in [

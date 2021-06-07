@@ -104,14 +104,16 @@ class XliffGenerator(SimplerXMLGenerator):
             self.addQuickElement(XliffElements.TARGET, contents=target)
 
     def set_richtext_source_data(self):
-        # First we set the header tag which contains an internal file. This internal file is the richtext converted to base64
+        # First we set the header tag which contains an internal file.
+        # This internal file is the richtext converted to base64
         self.startElement(XliffElements.HEADER, {})
         self.startElement(XliffElements.INTERNAL_FILE, {})
         self.characters(self.rich_text_parser.encode_html())
         self.endElement(XliffElements.INTERNAL_FILE)
         self.endElement(XliffElements.HEADER)
         for item in self.rich_text_parser.content_list:
-            # For each item in the content list, we create a source tag with the data and an empty target tag used for translation
+            # For each item in the content list,
+            # we create a source tag with the data and an empty target tag used for translation
             item = item.replace("\n", "").strip()
             self.startElement(XliffElements.SOURCE, {})
             self.characters(item)

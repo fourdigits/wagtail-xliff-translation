@@ -1,10 +1,10 @@
 from django.db import models
 
+from wagtail.admin.edit_handlers import StreamFieldPanel
 from wagtail.core import blocks
-from wagtail.core.fields import StreamField, RichTextField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.admin.edit_handlers import StreamFieldPanel
 
 from . import blocks as test_blocks
 

@@ -1,6 +1,7 @@
 import pytest
 
 from django.db.models import DurationField
+
 from wagtail_xliff_translation.helpers.page import PageHelper
 
 pytestmark = pytest.mark.django_db

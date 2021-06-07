@@ -8,6 +8,7 @@ from wagtail.images import get_image_model
 
 ImageModel = get_image_model()
 
+
 class HtmlXliffParser(HTMLParser):
     """
     Class used to parse rich text so we can generate XLIFF. We create a content list,
@@ -52,10 +53,10 @@ class HtmlXliffParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         """
-            Method that handles starttags. It's needed to differ from standard 
-            tags (e.g. <div> or <p>) and anchor, image and iframe tags. 
-            Furthermore, for each tag it's possible to receive attributes 
-            belonging to those tags, so we need to set each attribute
+        Method that handles starttags. It's needed to differ from standard
+        tags (e.g. <div> or <p>) and anchor, image and iframe tags.
+        Furthermore, for each tag it's possible to receive attributes
+        belonging to those tags, so we need to set each attribute
         """
         if tag == "a":
             self._html += self._handle_anchor_tag(attrs)
@@ -91,7 +92,7 @@ class HtmlXliffParser(HTMLParser):
 
     def handle_data(self, data):
         """
-            Move the data to the content list and add placeholders to the HTML string
+        Move the data to the content list and add placeholders to the HTML string
         """
         if data.strip():
             self._content_list.append(data)
@@ -125,10 +126,10 @@ class HtmlXliffParser(HTMLParser):
 
     def _handle_img_tag(self, attrs):
         """
-            The way Wagtail saves images to the database is in a different format than image tags.
-            So, we convert the image tag here to the desired format. The eventual database value looks
-            like the following:
-                <embed alt=\"image.jpg\" embedtype=\"image\" format=\"fullwidth\" id=\"1234\"/>
+        The way Wagtail saves images to the database is in a different format than image tags.
+        So, we convert the image tag here to the desired format. The eventual database value looks
+        like the following:
+            <embed alt=\"image.jpg\" embedtype=\"image\" format=\"fullwidth\" id=\"1234\"/>
         """
         alt = ""
         image_format = ""
@@ -138,16 +139,16 @@ class HtmlXliffParser(HTMLParser):
                 alt = value
             if key == "class":
                 image_format = value.split()[1].replace("-", "")
-        #TODO get image by another field (since original filename is no mo)
+        # TODO get image by another field (since original filename is no mo)
         image_id = ImageModel.objects.get(original_filename=alt).id
         return f"<embed alt='{alt}' embedtype='image' format='{image_format}' id='{image_id}'/>"
 
     def _handle_iframe_tag(self, attrs):
         """
-            The way wagtail saves videos to the database is almost identical to the image method seen
-            above here. Instead of embedtype image, it uses media and the only other attribute
-            is the video url. Example:
-                <embed embedtype=\"media\" url=\"https://vimeo.com/104600643\"/>
+        The way wagtail saves videos to the database is almost identical to the image method seen
+        above here. Instead of embedtype image, it uses media and the only other attribute
+        is the video url. Example:
+            <embed embedtype=\"media\" url=\"https://vimeo.com/104600643\"/>
         """
         url = attrs[0][1]
         video_url = ""
@@ -163,15 +164,15 @@ class HtmlXliffParser(HTMLParser):
 
     def _handle_anchor_tag(self, attrs):
         """
-            There are 6 different anchor types which can occur in a richtext:
-                Document link (/document/123/document)
-                Internal link (/en/page/)
-                External link (http://google.nl)
-                Mail link (mailto:example@email.com)
-                Telephone link (tel:0612345678)
-                Anchor link (#anchor_link)
-            The first two are important, because wagtail saves them with an id and a linktype.
-            The last four can be returned as normal anchor links
+        There are 6 different anchor types which can occur in a richtext:
+            Document link (/document/123/document)
+            Internal link (/en/page/)
+            External link (http://google.nl)
+            Mail link (mailto:example@email.com)
+            Telephone link (tel:0612345678)
+            Anchor link (#anchor_link)
+        The first two are important, because wagtail saves them with an id and a linktype.
+        The last four can be returned as normal anchor links
         """
         href = attrs[0][1]
         if href.startswith("/documents"):
