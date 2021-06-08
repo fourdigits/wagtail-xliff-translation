@@ -55,7 +55,7 @@ class DownloadView(BaseView):
             return DownloadForm(self.object)
 
     def get_success_message(self):
-        return _("Export successful")
+        return _("Download successful")
 
     def post(self, request, **kwargs):
         form = self.get_form()
@@ -106,7 +106,7 @@ class UploadView(BaseView):
         return reverse("wagtailadmin_explore", args=[self.get_object().id])
 
     def get_success_message(self):
-        return _("Import successful")
+        return _("Upload successful")
 
     def post(self, request, **kwargs):
         form = self.get_form()
