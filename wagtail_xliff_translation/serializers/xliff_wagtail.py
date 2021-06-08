@@ -1,11 +1,11 @@
 from xml.dom import pulldom
 
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.serializers import base
 from django.db import transaction
 from django.utils.translation import ugettext as _
 
-from wagtail.core.models import Locale
+from wagtail.core.models import Locale, ParentNotTranslatedError
 
 from ..constants import (
     FileAttributes,
@@ -91,9 +91,28 @@ class XliffWagtailDeserializer(base.Deserializer):
         return page, target_lang_instance
 
     def handle_object(self, file_node, is_translation_child):
+        """
+        Here we translate a page to the target locale. If the page already exists, we use
+        that page to create the translation. If the parent of the source page is not yet
+        translated, we throw an error because the tree needs to be identical until said parent.
+        """
         src_page, locale = self.validate_object(file_node)
         translation_helper = TranslationHelper(src_page)
-        translation_target_page = src_page.copy_for_translation(
-            locale, copy_parents=False, alias=False, exclude_fields=None
-        )
+        try:
+            translation_target_page = src_page.copy_for_translation(
+                locale, copy_parents=False, alias=False, exclude_fields=None
+            )
+        except ParentNotTranslatedError:
+            raise base.DeserializationError(
+                f"To translate '{src_page}' it is required the parent "
+                f"of '{src_page}' is also translated in the target {locale}"
+            )
+        except ValidationError as e:
+            if (
+                "Page with this Translation key and Locale already exists."
+                in e.messages
+            ):
+                translation_target_page = src_page.get_translation(locale)
+            else:
+                raise base.DeserializationError(e.messages)
         return translation_helper.translate_page(file_node, translation_target_page)
