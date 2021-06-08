@@ -2,7 +2,12 @@ def test_flat_html(html_parser):
     html_parser.feed(
         "<a href='https://google.nl'>hello world</a>hoebakek<ol><li>item_1</li><li>item_2</li></ol>"
     )
-    assert html_parser.content_list == ["hello world", "hoebakek", "item_1", "item_2"]
+    assert html_parser.content_list == [
+        ("a", "hello world"),
+        ("a", "hoebakek"),
+        ("li", "item_1"),
+        ("li", "item_2"),
+    ]
     assert (
         html_parser.html
         == "<a href='https://google.nl'>{placeholder_0}</a>{placeholder_1}"

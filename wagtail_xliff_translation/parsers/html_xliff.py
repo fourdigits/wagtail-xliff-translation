@@ -39,6 +39,7 @@ class HtmlXliffParser(HTMLParser):
         self._content_list = []
         self._html = ""
         self._index = 0
+        self._current_tag = ""
 
     @property
     def content_list(self):
@@ -58,6 +59,7 @@ class HtmlXliffParser(HTMLParser):
         Furthermore, for each tag it's possible to receive attributes
         belonging to those tags, so we need to set each attribute
         """
+        self._current_tag = tag
         if tag == "a":
             self._html += self._handle_anchor_tag(attrs)
         elif tag == "img":
@@ -76,6 +78,7 @@ class HtmlXliffParser(HTMLParser):
             self._html += self._close_tag(tag, True)
 
     def handle_startendtag(self, tag, attrs):
+        self._current_tag = tag
         if attrs:
             self._html += f"<{str(tag)}"
             for key, value in attrs:
@@ -95,7 +98,7 @@ class HtmlXliffParser(HTMLParser):
         Move the data to the content list and add placeholders to the HTML string
         """
         if data.strip():
-            self._content_list.append(data)
+            self._content_list.append((self._current_tag, data))
             self._html += f"{{{'placeholder_'+str(self._index)}}}"
             self._index += 1
 

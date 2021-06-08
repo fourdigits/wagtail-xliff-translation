@@ -67,14 +67,10 @@ class XliffGenerator(SimplerXMLGenerator):
         if page and isinstance(content, RichTextField):
             html_value = content.value_to_string(page)
             self.rich_text_parser.feed(html_value)
-            # self.start_end_original_data()
         elif isinstance(content, (RichText, SafeText)):
             html_value = str(content)
             self.rich_text_parser.feed(html_value)
-            # self.start_end_original_data()
-        self.startElement(XliffElements.SEGMENT, {})
         self.start_end_source(content, page, target)
-        self.endElement(XliffElements.SEGMENT)
         self.endElement(XliffElements.UNIT)
 
         if isinstance(content, (RichText, SafeText)):
@@ -87,21 +83,22 @@ class XliffGenerator(SimplerXMLGenerator):
         self.endElement(XliffElements.GROUP)
 
     def start_end_source(self, content, page=None, target=None):
-        if not page:
-            if isinstance(content, (RichText, SafeText)):
-                self.set_richtext_source_data()
-            else:
-                self.startElement(XliffElements.SOURCE, {})
-                self.characters(str(content))
-                self.endElement(XliffElements.SOURCE)
-                self.addQuickElement(XliffElements.TARGET, contents=target)
-        elif isinstance(content, RichTextField):
+        if isinstance(content, (RichText, SafeText, RichTextField)):
             self.set_richtext_source_data()
+            return
+
+        self.startElement(XliffElements.SEGMENT, {})
+        if not page:
+            self.startElement(XliffElements.SOURCE, {})
+            self.characters(str(content))
+            self.endElement(XliffElements.SOURCE)
+            self.addQuickElement(XliffElements.TARGET, contents=target)
         else:
             self.startElement(XliffElements.SOURCE, {})
             self.characters(content.value_to_string(page))
             self.endElement(XliffElements.SOURCE)
             self.addQuickElement(XliffElements.TARGET, contents=target)
+        self.endElement(XliffElements.SEGMENT)
 
     def set_richtext_source_data(self):
         # First we set the header tag which contains an internal file.
@@ -111,11 +108,13 @@ class XliffGenerator(SimplerXMLGenerator):
         self.characters(self.rich_text_parser.encode_html())
         self.endElement(XliffElements.INTERNAL_FILE)
         self.endElement(XliffElements.HEADER)
-        for item in self.rich_text_parser.content_list:
+        for tag, item in self.rich_text_parser.content_list:
             # For each item in the content list,
             # we create a source tag with the data and an empty target tag used for translation
-            item = item.replace("\n", "").strip()
+            self.startElement(XliffElements.SEGMENT, {"tag": tag})
             self.startElement(XliffElements.SOURCE, {})
+            item = item.replace("\n", "").strip()
             self.characters(item)
             self.endElement(XliffElements.SOURCE)
             self.addQuickElement(XliffElements.TARGET)
+            self.endElement(XliffElements.SEGMENT)
