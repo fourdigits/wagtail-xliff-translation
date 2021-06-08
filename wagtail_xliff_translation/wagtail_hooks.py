@@ -10,11 +10,11 @@ from .views import DownloadView, UploadView
 @hooks.register("register_admin_urls")
 def register_admin_urls():
     urls = [
-        path("download/page/<int:page_id>/", DownloadView.as_view(), name="download"),
-        path("import/page/<int:page_id>/", UploadView.as_view(), name="upload"),
+        path("<int:page_id>/xliff/download/", DownloadView.as_view(), name="download"),
+        path("<int:page_id>/xliff/upload/", UploadView.as_view(), name="upload"),
     ]
 
-    return [path("xliff/", include((urls, "xliff"), namespace="xliff"))]
+    return [path("pages/", include((urls, "xliff"), namespace="xliff"))]
 
 
 @hooks.register("register_page_listing_more_buttons")
