@@ -14,6 +14,7 @@ Exporting and importing a sub-tree, or a single page is supported.
 
 - Related objects (such as images, documents, and snippets) are not translated or duplicated.
 - Pages will be in draft mode. Pages need to be reviewed and published.
+- Nested StreamBlocks are known to cause issues since their database values are not correct. We've been able to make it work to 3 levels of nesting, however they seem to fail after that. The page will be created but cause errors when you try to edit the page and will probably also cause errors when using the pages in a frontend.
 
 ## Installation
 
