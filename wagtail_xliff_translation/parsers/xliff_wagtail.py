@@ -157,8 +157,7 @@ class XliffWagtailParser:
 
     def handle_regular_block(self, block_node):
         block_name = block_node.getAttribute(UnitAttributes.NAME)
-        # TODO needs to be changed since original data is no longer used
-        if block_node.getElementsByTagName(XliffElements.ORIGINAL_DATA):
+        if block_node.getElementsByTagName(XliffElements.HEADER):
             translations = self.process_rich_text(block_node)
             value = translations.get("target")
         else:
@@ -184,8 +183,7 @@ class XliffWagtailParser:
             except AttributeError:
                 continue
             if field.nodeName == XliffElements.UNIT:
-                # TODO needs to be changed since original data is no longer used
-                if block.getElementsByTagName(XliffElements.ORIGINAL_DATA):
+                if block.getElementsByTagName(XliffElements.HEADER):
                     translations = self.process_rich_text(field)
                     target = translations.get("target")
                     if target:
@@ -219,7 +217,7 @@ class XliffWagtailParser:
             for child in block_node.childNodes:
                 if child.nodeName == XliffElements.UNIT:
                     name = child.getAttribute(UnitAttributes.NAME)
-                    if child.getElementsByTagName("header"):
+                    if child.getElementsByTagName(XliffElements.HEADER):
                         translations = self.process_rich_text(child)
                         target = translations.get("target")
                         if target:
