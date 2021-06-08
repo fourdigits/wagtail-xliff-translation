@@ -14,6 +14,7 @@ Exporting and importing a sub-tree, or a single page is supported.
 
 - Related objects (such as images, documents, and snippets) are not translated or duplicated.
 - Pages will be in draft mode. Pages need to be reviewed and published.
+- Nested streamfield are known to cause issues since their database values are not correct. The page will be created but causes errors.
 
 ## Installation
 
