@@ -157,8 +157,7 @@ class XliffWagtailParser:
 
     def handle_regular_block(self, block_node):
         block_name = block_node.getAttribute(UnitAttributes.NAME)
-        # TODO needs to be changed since original data is no longer used
-        if block_node.getElementsByTagName(XliffElements.ORIGINAL_DATA):
+        if block_node.getElementsByTagName(XliffElements.HEADER):
             translations = self.process_rich_text(block_node)
             value = translations.get("target")
         else:
@@ -178,14 +177,11 @@ class XliffWagtailParser:
     def handle_structural_flat_block(self, block):
         structural_flat_block = {}
         structural_list_block = []
-        for field in block.childNodes:
-            try:
-                field_name = field.getAttribute(UnitAttributes.NAME)
-            except AttributeError:
-                continue
+        child_nodes = self._remove_text_nodes_from_nodelist(block.childNodes)
+        for field in child_nodes:
+            field_name = field.getAttribute(UnitAttributes.NAME)
             if field.nodeName == XliffElements.UNIT:
-                # TODO needs to be changed since original data is no longer used
-                if block.getElementsByTagName(XliffElements.ORIGINAL_DATA):
+                if block.getElementsByTagName(XliffElements.HEADER):
                     translations = self.process_rich_text(field)
                     target = translations.get("target")
                     if target:
@@ -219,7 +215,7 @@ class XliffWagtailParser:
             for child in block_node.childNodes:
                 if child.nodeName == XliffElements.UNIT:
                     name = child.getAttribute(UnitAttributes.NAME)
-                    if child.getElementsByTagName("header"):
+                    if child.getElementsByTagName(XliffElements.HEADER):
                         translations = self.process_rich_text(child)
                         target = translations.get("target")
                         if target:
@@ -239,11 +235,8 @@ class XliffWagtailParser:
 
     def handle_nested_stream(self, block_node):
         block = []
-        for child in block_node.childNodes:
-            try:
-                child.getAttribute(UnitAttributes.TYPE)
-            except AttributeError:
-                continue
+        child_nodes = self._remove_text_nodes_from_nodelist(block_node.childNodes)
+        for child in child_nodes:
             if child.getAttribute(UnitAttributes.TYPE) == ContentType.FLAT:
                 text = self.get_target_text_value(child)
                 if not text:
@@ -266,7 +259,8 @@ class XliffWagtailParser:
 
     def handle_top_level_stream(self, block_node, group_name):
         block = {"type": group_name, "value": []}
-        for child in block_node.childNodes:
+        child_nodes = self._remove_text_nodes_from_nodelist(block_node.childNodes)
+        for child in child_nodes:
             if child.getAttribute(UnitAttributes.TYPE) == ContentType.FLAT:
                 text = self.get_target_text_value(child)
                 if not text:
@@ -279,7 +273,10 @@ class XliffWagtailParser:
                     "type": child.getAttribute(UnitAttributes.NAME),
                     "value": [],
                 }
-                for grandchild in child.childNodes:
+                grandchild_nodes = self._remove_text_nodes_from_nodelist(
+                    child.childNodes
+                )
+                for grandchild in grandchild_nodes:
                     child_block["value"].append(
                         self.handle_structural_block(grandchild)
                     )
@@ -291,3 +288,10 @@ class XliffWagtailParser:
                 child_block = self.handle_regular_block(child)
                 block["value"].append(child_block)
         return block
+
+    def _remove_text_nodes_from_nodelist(self, nodelist):
+        return_list = []
+        for node in nodelist:
+            if not node.nodeName == XliffElements.TEXT:
+                return_list.append(node)
+        return return_list

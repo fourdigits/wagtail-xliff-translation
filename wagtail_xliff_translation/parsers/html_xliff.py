@@ -139,8 +139,9 @@ class HtmlXliffParser(HTMLParser):
                 alt = value
             if key == "class":
                 image_format = value.split()[1].replace("-", "")
-        # TODO get image by another field (since original filename is no mo)
-        image_id = ImageModel.objects.get(original_filename=alt).id
+            if key == "src":
+                filename, _, extension = value.split("/")[-1].split(".")
+        image_id = ImageModel.objects.get(file__endswith=f"{filename}.{extension}").id
         return f"<embed alt='{alt}' embedtype='image' format='{image_format}' id='{image_id}'/>"
 
     def _handle_iframe_tag(self, attrs):
@@ -150,15 +151,25 @@ class HtmlXliffParser(HTMLParser):
         is the video url. Example:
             <embed embedtype=\"media\" url=\"https://vimeo.com/104600643\"/>
         """
-        url = attrs[0][1]
+
+        def _get_source_from_attrs(attrs):
+            for key, value in attrs:
+                if key == "src":
+                    return value
+
+        url = _get_source_from_attrs(attrs)
         video_url = ""
+        video_id = url.split("?")[0].rsplit("/", 1)[1]
         if "vimeo" in url:
             # We need to get the video id from the url attribute and create a new URL.
-            video_id = url.split("?")[0].rsplit("/", 1)[1]
             video_url = f"https://vimeo.com/{video_id}"
         elif "youtube" in url:
             # Not sure if youtube has been removed or not, but adding youtube videos seems impossible
-            pass
+            video_url = f"https://youtu.be/{video_id}"
+        else:
+            # Unclear what providers are supported or notself.
+            # Full list https://github.com/wagtail/wagtail/blob/main/wagtail/embeds/oembed_providers.py
+            return
 
         return f"<embed embedtype='media' url='{video_url}'/>"
 
@@ -180,17 +191,10 @@ class HtmlXliffParser(HTMLParser):
             document_id = href.split("/")[2]
             return f"<a id='{document_id}' linktype='document'>"
         elif href.startswith("/"):
-            url_parts = href.split("/")
-            top_level_page = Page.objects.get(slug=f"{url_parts[2]}-{url_parts[1]}")
-            if len(url_parts) == 4:
-                # If the href is "/en/page/", we get 4 parts so we can links directly
-                return f"<a id='{top_level_page.id}' linktype='page'>"
-            else:
-                # Otherwise, we need to get a child of the top page by using the unique path and slug combination
-                page = Page.objects.filter(path__startswith=top_level_page.path).get(
-                    slug=url_parts[-2:][0]
-                )
-                return f"<a id='{page.id}' linktype='page'>"
+            # we get the slug from the url
+            slug = href.split("/")[-2]
+            page = Page.objects.get(slug=slug)
+            return f"<a id='{page.id}' linktype='page'>"
         else:
             return f"<a href='{attrs[0][1]}'>"
 
