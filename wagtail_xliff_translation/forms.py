@@ -3,8 +3,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext as _n
 
-from wagtail.admin.widgets import AdminPageChooser
-from wagtail.core.models import Locale, Page
+from wagtail.core.models import Locale
 
 
 class DownloadForm(forms.Form):
@@ -70,26 +69,6 @@ class ImportForm(forms.Form):
             )
         ),
     )
-
-    def __init__(self, page_pk, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        page = Page.objects.get(pk=page_pk).specific
-        self.fields["parent_page"] = forms.ModelChoiceField(
-            queryset=Page.objects.exclude(locale=page.locale),
-            required=False,
-            widget=AdminPageChooser(show_edit_link=False, target_models=[Page]),  # noqa
-            help_text=mark_safe(
-                _(
-                    "When a page is selected here, the pages generated based on the XLIFF "
-                    "file will be placed under this page."
-                )
-            ),
-            error_messages={
-                "invalid_choice": _(
-                    "Select a page with a different language than this page"
-                )
-            },
-        )
 
     def clean(self):
         data = super().clean()
