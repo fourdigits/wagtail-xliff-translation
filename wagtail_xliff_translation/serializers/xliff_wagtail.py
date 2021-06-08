@@ -23,7 +23,6 @@ class XliffWagtailDeserializer(base.Deserializer):
         super().__init__(stream_or_string, **options)
         self.event_stream = pulldom.parse(self.stream)
         self.object_ids = self.options.get("object_ids")
-        self.parent_page = self.options.get("parent_page")
         self.create_pages = self.options.get("create_pages")
 
     def __next__(self):

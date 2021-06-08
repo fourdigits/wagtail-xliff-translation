@@ -96,11 +96,10 @@ class UploadView(BaseView):
     template_name = "xliff/admin/import.html"
 
     def get_form(self):
-        page_pk = self.kwargs.get("page_id")
         if self.request.method == "POST":
-            return ImportForm(page_pk, self.request.POST, self.request.FILES)
+            return ImportForm(self.request.POST, self.request.FILES)
         else:
-            return ImportForm(page_pk)
+            return ImportForm()
 
     def get_success_url(self):
         return reverse("wagtailadmin_explore", args=[self.get_object().id])
@@ -116,7 +115,6 @@ class UploadView(BaseView):
             update_target_page = form.cleaned_data["update_target_page"]
             update_subtree = form.cleaned_data["update_subtree"]
             create_pages = form.cleaned_data["create_pages"]
-            parent_page = form.cleaned_data["parent_page"]
 
             objects = []
             if update_target_page:
@@ -135,7 +133,6 @@ class UploadView(BaseView):
                     xliff,
                     object_ids=object_ids,
                     create_pages=create_pages,
-                    parent_page=parent_page,
                 ).all()
                 if not result:
                     descendant_ids = [
