@@ -28,14 +28,18 @@
             </segment>
         </unit>
         <unit canResegment="no" id="test_richtextfield" name="test_richtextfield" translate="yes" type="local:RichTextField">
-            <segment>
-                <header>
-                    <internal_file>PGgxPntwbGFjZWhvbGRlcl8wfTwvaDE+PGltZyBocmVmPSIvbGluay10by1rZWsvIiAvPjxpbWcvPjxhIGhyZWY9J2h0dHA6Ly9nb29nbGUubmwnPntwbGFjZWhvbGRlcl8xfTwvYT48Ym9sZD57cGxhY2Vob2xkZXJfMn08L2JvbGQ+</internal_file>
-                </header>
+            <header>
+                <internal_file>PGgxPntwbGFjZWhvbGRlcl8wfTwvaDE+PGltZyBocmVmPSIvbGluay10by1rZWsvIiAvPjxpbWcvPjxhIGhyZWY9J2h0dHA6Ly9nb29nbGUubmwnPntwbGFjZWhvbGRlcl8xfTwvYT48Ym9sZD57cGxhY2Vob2xkZXJfMn08L2JvbGQ+</internal_file>
+            </header>
+            <segment tag="h1">
                 <source>hoeba</source>
                 <target/>
+            </segment>
+            <segment tag="a">
                 <source>kek</source>
                 <target/>
+            </segment>
+            <segment tag="bold">
                 <source>fancy bold stuff</source>
                 <target/>
             </segment>

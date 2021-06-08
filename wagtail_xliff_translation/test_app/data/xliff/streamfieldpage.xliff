@@ -53,21 +53,23 @@
                 </segment>
             </unit>
             <unit canResegment="no" id="rich_text_block-5" name="rich_text_block" translate="yes" type="local:rich_text_block">
-                <segment>
-                    <header>
-                        <internal_file>PGg0PjxiPntwbGFjZWhvbGRlcl8wfTwvYj48L2g0PjxvbD48bGk+PGI+e3BsYWNlaG9sZGVyXzF9PC9iPjwvbGk+PC9vbD4=</internal_file>
-                    </header>
+                <header>
+                    <internal_file>PGg0PjxiPntwbGFjZWhvbGRlcl8wfTwvYj48L2g0PjxvbD48bGk+PGI+e3BsYWNlaG9sZGVyXzF9PC9iPjwvbGk+PC9vbD4=</internal_file>
+                </header>
+                <segment tag="b">
                     <source>beautifull Richtext</source>
                     <target/>
+                </segment>
+                <segment tag="b">
                     <source>a bold list item</source>
                     <target/>
                 </segment>
             </unit>
             <unit canResegment="no" id="raw_html_block-6" name="raw_html_block" translate="yes" type="local:raw_html_block">
-                <segment>
-                    <header>
-                        <internal_file>PGRpdiBjbGFzcz0icmF3aHRtbCI+e3BsYWNlaG9sZGVyXzB9PC9kaXY+</internal_file>
-                    </header>
+                <header>
+                    <internal_file>PGRpdiBjbGFzcz0icmF3aHRtbCI+e3BsYWNlaG9sZGVyXzB9PC9kaXY+</internal_file>
+                </header>
+                <segment tag="div">
                     <source>rawhtmlblock</source>
                     <target/>
                 </segment>
@@ -94,19 +96,19 @@
             </group>
             <group canResegment="no" id="rich_text_struct_block_1" name="rich_text_struct_block" type="local:structural">
                 <unit canResegment="no" id="field_a-10" name="field_a" translate="yes" type="local:field_a">
-                    <segment>
-                        <header>
-                            <internal_file>PHA+PGI+e3BsYWNlaG9sZGVyXzB9PC9iPjwvcD4=</internal_file>
-                        </header>
+                    <header>
+                        <internal_file>PHA+PGI+e3BsYWNlaG9sZGVyXzB9PC9iPjwvcD4=</internal_file>
+                    </header>
+                    <segment tag="b">
                         <source>rich text struct block</source>
                         <target/>
                     </segment>
                 </unit>
                 <unit canResegment="no" id="field_b-11" name="field_b" translate="yes" type="local:field_b">
-                    <segment>
-                        <header>
-                            <internal_file>PHA+PGI+e3BsYWNlaG9sZGVyXzB9PC9iPjwvcD4=</internal_file>
-                        </header>
+                    <header>
+                        <internal_file>PHA+PGI+e3BsYWNlaG9sZGVyXzB9PC9iPjwvcD4=</internal_file>
+                    </header>
+                    <segment tag="b">
                         <source>rich text structblock</source>
                         <target/>
                     </segment>
