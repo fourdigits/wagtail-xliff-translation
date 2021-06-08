@@ -21,8 +21,8 @@ def register_admin_urls():
 def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
     if page_perms.user.is_superuser and not page.is_root():
         yield wagtailadmin_widgets.Button(
-            _("Download XLIFF"), reverse("xliff:download", args=[page.id]), priority=60
+            _("Download XLIFF"), reverse("xliff:download", args=[page.id]), priority=61
         )
         yield wagtailadmin_widgets.Button(
-            _("Upload XLIFF"), reverse("xliff:upload", args=[page.id]), priority=61
+            _("Upload XLIFF"), reverse("xliff:upload", args=[page.id]), priority=62
         )
