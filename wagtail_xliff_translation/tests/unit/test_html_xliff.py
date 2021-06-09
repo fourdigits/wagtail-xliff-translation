@@ -1,3 +1,8 @@
+import pytest
+
+pytestmark = pytest.mark.django_db
+
+
 def test_flat_html(html_parser):
     html_parser.feed(
         "<a href='https://google.nl'>hello world</a>hoebakek<ol><li>item_1</li><li>item_2</li></ol>"
@@ -65,3 +70,51 @@ def test_flat_html(html_parser):
 
     assert not html_parser.html
     assert not html_parser.content_list
+
+
+def test_handle_img_tag(html_parser, image_factory):
+    image = image_factory()
+    filename = image.file.name.split("/")[1].split(".")[0]
+    html = f'<img alt="alt.jpg" class="richtext-image full-width" src="original_images/{filename}.width-800.jpg" height="192" width="192">'  # noqa
+    html_parser.feed(html)
+    assert (
+        html_parser.html
+        == "<embed alt='alt.jpg' embedtype='image' format='fullwidth' id='1'/>"
+    )
+
+
+def test_handle_iframe_tag(html_parser):
+    html = "<iframe src='https://player.vimeo.com/video/104600643?app_id=122963'>"
+    html_parser.feed(html)
+
+    assert (
+        html_parser.html
+        == "<embed embedtype='media' url='https://vimeo.com/104600643'/>"
+    )
+
+    html_parser.reset()
+    html = "<iframe src='https://www.youtube.com/embed/sWOUi0PVTXw?feature=oembed'>"
+    html_parser.feed(html)
+
+    assert (
+        html_parser.html
+        == "<embed embedtype='media' url='https://youtu.be/sWOUi0PVTXw'/>"
+    )
+
+
+def test_handle_anchor_tag(html_parser, page, document_factory):
+    document = document_factory()
+    html = f"""
+    <a href='mailto:test@test.test'>
+    <a href='tel:0612345678'>
+    <a href='#test'>
+    <a href='https://fourdigits.nl/en/'>
+    <a href='/documents/{document.id}/document'>
+    <a href='/{page.slug}/'>
+    """
+    html_parser.feed(html)
+
+    assert (
+        html_parser.html
+        == f"<a href='mailto:test@test.test'><a href='tel:0612345678'><a href='#test'><a href='https://fourdigits.nl/en/'><a id='{document.id}' linktype='document'><a id='{page.id}' linktype='page'>"  # noqa
+    )
