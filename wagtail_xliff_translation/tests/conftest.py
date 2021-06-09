@@ -16,6 +16,8 @@ from wagtail_xliff_translation.parsers.html_xliff import HtmlXliffParser
 
 register(LocaleFactory)
 register(wagtail_factories.SiteFactory)
+register(wagtail_factories.ImageFactory)
+register(wagtail_factories.DocumentFactory)
 
 
 @pytest.fixture

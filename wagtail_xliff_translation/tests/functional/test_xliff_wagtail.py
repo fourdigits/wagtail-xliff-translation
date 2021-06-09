@@ -8,37 +8,24 @@ from ..utils import get_condensed_sample_data, get_object_ids
 pytestmark = pytest.mark.django_db
 
 
-@pytest.mark.skip("To be fixed")
-def test_basic_deserialization(english_german_base, page):
+def test_basic_deserialization(english_german_base):
     english_page, german_language = english_german_base
     object_ids = get_object_ids([english_page])
     xliff = get_condensed_sample_data("xliff_translated/zgpage.xliff", object_ids)
+    with pytest.raises(DeserializationError):
+        translated_pages = (
+            serializers.deserialize(
+                "xliff", xliff, object_ids=object_ids, create_pages=True
+            ).all(),
+            "A parent is required",
+        )
+    english_page.get_parent().copy_for_translation(german_language)
     translated_pages = serializers.deserialize(
         "xliff", xliff, object_ids=object_ids, create_pages=True
     ).all()
     german_page = translated_pages[0]
     assert german_page.draft
     assert german_page.title == german_page.slug == "german_page"
-
-    new_parent_page = page
-    with pytest.raises(DeserializationError):
-        serializers.deserialize(
-            "xliff",
-            xliff,
-            object_ids=object_ids,
-            create_pages=True,
-            parent_page=new_parent_page,
-        ).all()
-
-    german_page.delete()
-    translated_pages = serializers.deserialize(
-        "xliff",
-        xliff,
-        object_ids=object_ids,
-        create_pages=True,
-        parent_page=new_parent_page,
-    ).all()
-    assert translated_pages[0].get_parent() == new_parent_page
 
 
 def test_richtext_deserialization(english_richtext_german_base):
@@ -61,9 +48,9 @@ def test_richtext_deserialization(english_richtext_german_base):
     )
 
 
-@pytest.mark.skip("To be fixed")
 def test_streamfield_deserialization(english_streamfield_german_base):
     english_page, german_language = english_streamfield_german_base
+    english_page.get_parent().copy_for_translation(german_language)
     object_ids = get_object_ids([english_page])
     xliff = get_condensed_sample_data(
         "xliff_translated/streamfieldpage.xliff", object_ids
@@ -79,9 +66,12 @@ def test_streamfield_deserialization(english_streamfield_german_base):
     assert german_page.test_streamfield[4].value == "http://www.fourdigits.de"
     assert (
         str(german_page.test_streamfield[5].value)
-        == '<div class="rich-text">schöner richtext</div>'
+        == "<h4><b>schöner richtext</b></h4><ol><li><b>ein fetter Listeneintrag</b></li></ol>"
     )
-    assert german_page.test_streamfield[6].value == "rohhtmlblock"
+    assert (
+        german_page.test_streamfield[6].value
+        == '<div class="rawhtml">rohhtmlblock</div>'
+    )
     assert german_page.test_streamfield[7].value == "ein Blockzitat"
     assert (
         german_page.test_streamfield[8].value.get("field_a")
@@ -93,11 +83,11 @@ def test_streamfield_deserialization(english_streamfield_german_base):
     )
     assert (
         str(german_page.test_streamfield[9].value.get("field_a"))
-        == '<div class="rich-text"><p><b>Rich-Text-Strukturblock</b></p></div>'
+        == "<p><b>Rich-Text-Strukturblock</b></p>"
     )
     assert (
         str(german_page.test_streamfield[9].value.get("field_b"))
-        == '<div class="rich-text"><p><b>Rich-Text-Strukturblock</b></p></div>'
+        == "<p><b>Rich-Text-Strukturblock</b></p>"
     )
     assert (
         german_page.test_streamfield[10].value.get("child").get("field_a")
