@@ -349,6 +349,7 @@ Once the file is translated, it can be uploaded to create a translated site tree
 <ul>
 <li>Related objects (such as images, documents, and snippets) are not translated or duplicated.</li>
 <li>Pages will be in draft mode. Pages need to be reviewed and published.</li>
+<li>Nested StreamBlocks are known to cause issues since their database values are not correct. We've been able to make it work to 3 levels of nesting, however they seem to fail after that. The page will be created but cause errors when you try to edit the page and will probably also cause errors when using the pages in a frontend.</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p>To install:</p>
