@@ -103,8 +103,8 @@ class XliffWagtailDeserializer(base.Deserializer):
             )
         except ParentNotTranslatedError:
             raise base.DeserializationError(
-                f"To translate '{src_page}' it is required the parent "
-                f"of '{src_page}' is also translated in the target {locale}"
+                f"To translate '{src_page}' it is required that the parent "
+                f"of '{src_page}' is also translated in the target locale: '{locale}'"
             )
         except ValidationError as e:
             if (
