@@ -92,7 +92,7 @@ class DownloadView(BaseView):
 
 
 class UploadView(BaseView):
-    title = _("Import XLIFF")
+    title = _("Upload XLIFF")
     template_name = "xliff/admin/import.html"
 
     def get_form(self):
