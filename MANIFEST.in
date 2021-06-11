@@ -1,0 +1,9 @@
+include *.py
+include *.rst
+include *.txt
+include *.yml
+recursive-include docs *.md
+recursive-include wagtail_xliff_translation *.html
+recursive-include wagtail_xliff_translation *.json
+recursive-include wagtail_xliff_translation *.png
+recursive-include wagtail_xliff_translation *.xliff
