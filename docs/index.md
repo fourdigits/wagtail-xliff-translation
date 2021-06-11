@@ -26,7 +26,7 @@ pip install wagtail-xliff-translation
 
 In settings.py:
 
-- Add `'wagtail-xliff-translation'` to `INSTALLED_APPS`.
+- Add `'wagtail_xliff_translation'` to `INSTALLED_APPS`.
 - Add `'SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}'` setting.
 
 Like so:
@@ -35,7 +35,7 @@ Like so:
 # settings.py
 
 INSTALLED_APPS = [
-    'wagtail-xliff-translation',
+    'wagtail_xliff_translation',
     ...
 ]
 
