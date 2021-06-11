@@ -71,4 +71,5 @@ python -m twine upload --repository pypi dist/*
 
 - Add new header `<MAJOR>.<MINOR>.<PATCH> - IN DEVELOPMENT` to CHANGELOG.txt. Increment the MINOR +1.
 - Commit with the message `Back to development` and push.
+- Update the docs `mkdocs gh-deploy`.
 - Do promotion: blog, tweet, Wagtail Slack #twiw.
