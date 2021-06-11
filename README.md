@@ -7,7 +7,7 @@ Exporting and importing a sub-tree, or a single page is supported.
 
 ## Explanation
 
-After succesfully adding this package, new routes will be available (e.g. /admin/pages/<page_id>/xliff/download) and pages will have two extra buttons:
+After successfully adding this package, new routes will be available (e.g. /admin/pages/<page_id>/xliff/download) and pages will have two extra buttons:
 
 ![Image extra buttons](wagtail_xliff_translation/test_app/data/images/image_extra_buttons.png)
 
@@ -15,7 +15,7 @@ Pressing the download button will open the following page, where you can generat
 
 ![Image download page](wagtail_xliff_translation/test_app/data/images/image_download_page.png)
 
-This will generate an xliff file in the following format (page used only has a title):
+This will generate an XLIFF file in the following format (page used only has a title):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -63,34 +63,6 @@ The XLIFF file is formatted in such a way it works with XLIFF editors as well, f
 ## Documentation
 
 https://fourdigits.github.io/wagtail-xliff-translation/
-
-## Tests
-
-To run the tests, checkout the repository and run:
-
-```shell
-pytest
-```
-
-## Release Process
-
-Checklist:
-
-- Update CONTRIBUTORS.rst if necessary
-- Update CHANGELOG.txt
-- Everything is commited, clean checkout
-
-With an active virtual environment
-
-```shell
-pytest
-git tag -a <MAJOR>.<MINOR>.<PATCH> -m "<message>"
-git push --tags
-python -m pip install --upgrade build
-python -m build
-python -m pip install --upgrade twine
-python -m twine upload --repository pypi dist/*
-```
 
 ## Powered by Four Digits
 
