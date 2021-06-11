@@ -247,9 +247,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documentation" class="md-nav__link">
     Documentation
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    Release Process
+  </a>
+  
+    <nav class="md-nav" aria-label="Release Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-release" class="md-nav__link">
+    Pre release
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release" class="md-nav__link">
+    Release
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-release" class="md-nav__link">
+    Post release
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -287,9 +328,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documentation" class="md-nav__link">
     Documentation
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    Release Process
+  </a>
+  
+    <nav class="md-nav" aria-label="Release Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-release" class="md-nav__link">
+    Pre release
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release" class="md-nav__link">
+    Release
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-release" class="md-nav__link">
+    Post release
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -318,6 +400,7 @@
 <p>With your preferred virtualenv activated, install the package in development mode with the included testing and documentation dependencies:</p>
 <div class="highlight"><pre><span></span><code>python -m pip install -e <span class="s1">&#39;.[test,docs]&#39;</span> -U
 </code></pre></div>
+<h2 id="tests">Tests</h2>
 <p>Run tests:</p>
 <div class="highlight"><pre><span></span><code>pytest
 </code></pre></div>
@@ -332,6 +415,31 @@
 <div class="highlight"><pre><span></span><code>mkdocs gh-deploy
 </code></pre></div>
 <p>See <a href="https://fourdigits.github.io/wagtail-xliff-translation/">https://fourdigits.github.io/wagtail-xliff-translation/</a></p>
+<h2 id="release-process">Release Process</h2>
+<h3 id="pre-release">Pre release</h3>
+<ul>
+<li>Update CONTRIBUTORS.rst if necessary</li>
+<li>Update CHANGELOG.txt</li>
+<li>Update <code>version = &lt;MAJOR&gt;.&lt;MINOR&gt;.&lt;PATCH&gt;</code> in <code>setup.cfg</code></li>
+<li>Everything is committed, clean checkout</li>
+</ul>
+<h3 id="release">Release</h3>
+<p>With an active virtual environment:</p>
+<div class="highlight"><pre><span></span><code>pytest
+git tag -a &lt;MAJOR&gt;.&lt;MINOR&gt;.&lt;PATCH&gt; -m <span class="s2">&quot;&lt;message&gt;&quot;</span>
+git push --tags
+python -m pip install --upgrade build
+python -m build
+python -m pip install --upgrade twine
+python -m twine upload --repository pypi dist/*
+</code></pre></div>
+<h3 id="post-release">Post release</h3>
+<ul>
+<li>Add new header <code>&lt;MAJOR&gt;.&lt;MINOR&gt;.&lt;PATCH&gt; - IN DEVELOPMENT</code> to CHANGELOG.txt. Increment the MINOR +1.</li>
+<li>Commit with the message <code>Back to development</code> and push.</li>
+<li>Update the docs <code>mkdocs gh-deploy</code>.</li>
+<li>Do promotion: blog, tweet, Wagtail Slack #twiw.</li>
+</ul>
                 
               
               
