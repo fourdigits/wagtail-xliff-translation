@@ -16,6 +16,10 @@ Exporting and importing a sub-tree, or a single page is supported.
 - Pages will be in draft mode. Pages need to be reviewed and published.
 - Nested StreamBlocks are known to cause issues since their database values are not correct. We've been able to make it work to 3 levels of nesting, however they seem to fail after that. The page will be created but cause errors when you try to edit the page and will probably also cause errors when using the pages in a frontend.
 
+## Prerequisites
+
+A Wagtail project setup for multi-language site. See the [Wagtail docs on internationalisation](https://docs.wagtail.io/en/stable/advanced_topics/i18n.html) to get started.
+
 ## Installation
 
 To install:
