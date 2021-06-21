@@ -246,8 +246,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -315,8 +329,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -351,6 +379,8 @@ Once the file is translated, it can be uploaded to create a translated site tree
 <li>Pages will be in draft mode. Pages need to be reviewed and published.</li>
 <li>Nested StreamBlocks are known to cause issues since their database values are not correct. We've been able to make it work to 3 levels of nesting, however they seem to fail after that. The page will be created but cause errors when you try to edit the page and will probably also cause errors when using the pages in a frontend.</li>
 </ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>A Wagtail project setup for multi-language site. See the <a href="https://docs.wagtail.io/en/stable/advanced_topics/i18n.html">Wagtail docs on internationalisation</a> to get started.</p>
 <h2 id="installation">Installation</h2>
 <p>To install:</p>
 <div class="highlight"><pre><span></span><code>pip install wagtail-xliff-translation
@@ -370,6 +400,8 @@ Once the file is translated, it can be uploaded to create a translated site tree
 
 <span class="x">SERIALIZATION_MODULES = {&quot;xliff&quot;: &quot;wagtail_xliff_translation.serializers&quot;}</span>
 </code></pre></div>
+<h2 id="usage">Usage</h2>
+<p>In the Wagtail admin on a page list, the 'More' menu will contain 'Download XLIFF' and 'Upload XLIFF' items. See the <a href="https://github.com/fourdigits/wagtail-xliff-translation/">readme</a> for screenshots.</p>
                 
               
               
