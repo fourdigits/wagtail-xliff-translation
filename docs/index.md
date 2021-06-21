@@ -45,3 +45,7 @@ INSTALLED_APPS = [
 
 SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}
 ```
+
+## Usage
+
+In the Wagtail admin on a page list, the 'More' menu will contain 'Download XLIFF' and 'Upload XLIFF' items. See the [readme](https://github.com/fourdigits/wagtail-xliff-translation/) for screenshots.
