@@ -7,7 +7,7 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault(
-        "DJANGO_SETTINGS_MODULE", "wagtail_xliff_translation.test_app.settings"
+        "DJANGO_SETTINGS_MODULE", "test_app.settings"
     )
     try:
         from django.core.management import execute_from_command_line
