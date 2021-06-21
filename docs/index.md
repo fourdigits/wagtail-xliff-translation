@@ -16,6 +16,10 @@ Exporting and importing a sub-tree, or a single page is supported.
 - Pages will be in draft mode. Pages need to be reviewed and published.
 - Nested StreamBlocks are known to cause issues since their database values are not correct. We've been able to make it work to 3 levels of nesting, however they seem to fail after that. The page will be created but cause errors when you try to edit the page and will probably also cause errors when using the pages in a frontend.
 
+## Prerequisites
+
+A Wagtail project setup for multi-language site. See the [Wagtail docs on internationalisation](https://docs.wagtail.io/en/stable/advanced_topics/i18n.html) to get started.
+
 ## Installation
 
 To install:
@@ -41,3 +45,7 @@ INSTALLED_APPS = [
 
 SERIALIZATION_MODULES = {"xliff": "wagtail_xliff_translation.serializers"}
 ```
+
+## Usage
+
+In the Wagtail admin on a page list, the 'More' menu will contain 'Download XLIFF' and 'Upload XLIFF' items. See the [readme](https://github.com/fourdigits/wagtail-xliff-translation/) for screenshots.
