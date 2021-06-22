@@ -4,14 +4,14 @@ import os
 import pytest
 import wagtail_factories
 from pytest_factoryboy import register
-from test_app.factories import LocaleFactory
-from test_app.models import PageWithRichText, PageWithStreamField
 
 from django.conf import settings
 
 from wagtail.core.models import Page, Site
 from wagtail.core.rich_text import RichText
 
+from test_app.factories import LocaleFactory
+from test_app.models import PageWithRichText, PageWithStreamField
 from wagtail_xliff_translation.parsers.html_xliff import HtmlXliffParser
 
 register(LocaleFactory)
