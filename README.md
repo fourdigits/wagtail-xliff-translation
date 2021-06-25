@@ -9,11 +9,11 @@ Exporting and importing a sub-tree, or a single page is supported.
 
 After successfully adding this package, new routes will be available (e.g. /admin/pages/<page_id>/xliff/download) and pages will have two extra buttons:
 
-![Image extra buttons](wagtail_xliff_translation/test_app/data/images/image_extra_buttons.png)
+![Image extra buttons](test_app/data/images/image_extra_buttons.png)
 
 Pressing the download button will open the following page, where you can generate and download the XLIFF file:
 
-![Image download page](wagtail_xliff_translation/test_app/data/images/image_download_page.png)
+![Image download page](test_app/data/images/image_download_page.png)
 
 This will generate an XLIFF file in the following format (page used only has a title):
 
@@ -50,7 +50,7 @@ This will generate an XLIFF file in the following format (page used only has a t
 
 Finally, this package provides an upload page with several options:
 
-![Image upload page](wagtail_xliff_translation/test_app/data/images/image_upload_page.png)
+![Image upload page](test_app/data/images/image_upload_page.png)
 
 Uploading can result in errors, for example when the XLIFF file is missing content in the target tags. Wagtail page validation is also done and can also result in errors.
 
@@ -58,7 +58,7 @@ Uploading can result in errors, for example when the XLIFF file is missing conte
 
 The XLIFF file is formatted in such a way it works with XLIFF editors as well, for example [Poedit](https://poedit.net/).
 
-![Image poedit](wagtail_xliff_translation/test_app/data/images/screenshot_poedit.png)
+![Image poedit](test_app/data/images/screenshot_poedit.png)
 
 ## Documentation
 
